@@ -1,5 +1,6 @@
 import "./Boards.css";
 import BoardIcon from "../../assets/icon-board.svg";
+import HideSidebarIcon from "../../assets/icon-hide-sidebar.svg";
 import {
   BoardContent,
   BoardList,
@@ -10,6 +11,7 @@ import {
 } from "./BoardStyles";
 import boardData from "../../data.json";
 import { useState } from "react";
+import { DarkOrLightMode } from "./DarkOrLightMode/DarkOrLightMode";
 export const Boards = () => {
   const [selected, setSelectedIndex] = useState(1);
 
@@ -20,32 +22,40 @@ export const Boards = () => {
     setSelectedIndex(index);
   };
   return (
-    <div className="boards-container">
-      <h5>ALL BOARDS (3)</h5>
+    <>
+      <div className="boards-container">
+        <h5>ALL BOARDS (3)</h5>
 
-      <BoardList>
-        {boardData.boards.map((board, index) => (
-          <EachBoard key={board.name}>
-            <BoardContent
-              selected={selected === index}
-              onClick={(event) => handleListItemClick(event, index)}
-            >
-              <IconContent>
-                <img src={BoardIcon} alt="board-icon" />
-              </IconContent>
-              <BoardText primary={board.name} />
-            </BoardContent>
-          </EachBoard>
-        ))}
-      </BoardList>
+        <BoardList>
+          {boardData.boards.map((board, index) => (
+            <EachBoard key={board.name}>
+              <BoardContent
+                selected={selected === index}
+                onClick={(event) => handleListItemClick(event, index)}
+              >
+                <IconContent>
+                  <img src={BoardIcon} alt="board-icon" />
+                </IconContent>
+                <BoardText primary={board.name} />
+              </BoardContent>
+            </EachBoard>
+          ))}
+        </BoardList>
 
+        <CreateNewBoard
+          startIcon={
+            <img src={BoardIcon} alt="board-icon" className="board-icon" />
+          }
+        >
+          + Create New Board
+        </CreateNewBoard>
+      </div>
+      <DarkOrLightMode />
       <CreateNewBoard
-        startIcon={
-          <img src={BoardIcon} alt="board-icon" className="board-icon" />
-        }
+        startIcon={<img src={HideSidebarIcon} alt="hide sidebar" />}
       >
-        + Create New Board
+        Hide Sidebar
       </CreateNewBoard>
-    </div>
+    </>
   );
 };

@@ -3,6 +3,8 @@
   grid-row-start: 1;
   grid-row-end: 3;
   border: 1px solid var(--pastel-grey);
+  display: flex;
+  flex-direction: column;
 }
 
 .logo-container {
