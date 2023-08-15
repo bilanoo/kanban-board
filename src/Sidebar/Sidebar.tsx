@@ -1,5 +1,6 @@
 import "./SideBar.css";
 import LogoLight from "../assets/logo-light.svg";
+import { Boards } from "./Boards/Boards";
 
 export const Sidebar = () => {
   return (
@@ -13,9 +14,7 @@ export const Sidebar = () => {
         </h1>
       </div>
 
-      <div className="boards-container">
-        <h5>ALL BOARDS (3)</h5>
-      </div>
+      <Boards />
     </div>
   );
 };
