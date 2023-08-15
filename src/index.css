@@ -1,6 +1,5 @@
 :root {
-  font-family: Plus Jakarta Sans, system-ui, Avenir, Helvetica, Arial,
-    sans-serif;
+  font-family: Plus Jakarta Sans, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
@@ -28,6 +27,7 @@
   --white: #ffffff;
   --orange: #ea5555;
   --light-orange: #ff9898;
+  --onhover-board: #635fc71a;
 }
 
 body,

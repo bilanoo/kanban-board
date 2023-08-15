@@ -1,6 +1,5 @@
 .boards-container {
   display: flex;
-  margin-left: 24px;
   flex-direction: column;
   text-align: start;
 }
@@ -12,4 +11,10 @@ h5 {
   font-weight: 700;
   line-height: normal;
   letter-spacing: 2.4px;
+  margin-left: 24px;
+}
+
+.board-icon {
+  filter: invert(39%) sepia(47%) saturate(748%) hue-rotate(203deg)
+    brightness(94%) contrast(93%);
 }
