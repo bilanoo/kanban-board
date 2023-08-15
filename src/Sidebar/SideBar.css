@@ -1,0 +1,38 @@
+.sidebar-container {
+  height: 100%;
+  grid-row-start: 1;
+  grid-row-end: 3;
+  border: 1px solid var(--pastel-grey);
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  margin-left: 26px;
+  margin-top: 32px;
+}
+
+.logo {
+  float: left;
+}
+
+.logo-name {
+  font-weight: bold;
+  color: var(--black);
+}
+
+.boards-container {
+  display: flex;
+  margin-left: 24px;
+  flex-direction: column;
+  text-align: start;
+}
+
+h5 {
+  color: var(--lighter-grey);
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  letter-spacing: 2.4px;
+}

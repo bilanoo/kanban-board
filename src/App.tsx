@@ -1,15 +1,10 @@
 import "./App.css";
+import { Sidebar } from "./Sidebar/Sidebar";
 
 function App() {
   return (
     <div className="board-container">
-      <div className="header">
-        <p>All Boards</p>
-        <p>All Boards</p>
-        <p>All Boards</p>
-        <p>All Boards</p>
-        <p>All Boards</p>
-      </div>
+      <Sidebar />
       <div className="board-header">
         <p>Platform Launch</p>
       </div>
