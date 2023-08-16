@@ -37,12 +37,3 @@ export const AddNewTask = styled(Button)(() => ({
     backgroundColor: "var(--light-purple)",
   },
 }));
-
-export const EditOrDeleteBoard = styled(IconButton)(() => ({
-  "&": {
-    marginLeft: "10px",
-  },
-  "&:hover": {
-    backgroundColor: "none",
-  },
-}));
