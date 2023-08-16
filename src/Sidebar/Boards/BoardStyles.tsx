@@ -71,6 +71,7 @@ export const CreateNewBoard = styled(Button)(() => ({
     marginRight: "20px",
     height: "46.5px",
     borderRadius: "0 100px 100px 0",
+    textTransform: "none",
   },
 }));
 
@@ -83,6 +84,7 @@ export const HideSidebar = styled(Button)(() => ({
     height: "48px",
     paddingLeft: "20px",
     borderRadius: "0 100px 100px 0",
+    textTransform: "none",
   },
   "&&.MuiButton-text": {
     color: "var(--lighter-grey)",
