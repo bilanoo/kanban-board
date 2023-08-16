@@ -73,3 +73,22 @@ export const CreateNewBoard = styled(Button)(() => ({
     borderRadius: "0 100px 100px 0",
   },
 }));
+
+export const HideSidebar = styled(Button)(() => ({
+  "&": {
+    margin: 0,
+    justifyContent: "start",
+    fontWeight: "700",
+    marginRight: "20px",
+    height: "48px",
+    paddingLeft: "20px",
+    borderRadius: "0 100px 100px 0",
+  },
+  "&&.MuiButton-text": {
+    color: "var(--lighter-grey)",
+  },
+
+  "&:hover": {
+    backgroundColor: "var(--onhover-board)",
+  },
+}));

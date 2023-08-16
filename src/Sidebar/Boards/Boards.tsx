@@ -7,6 +7,7 @@ import {
   BoardText,
   CreateNewBoard,
   EachBoard,
+  HideSidebar,
   IconContent,
 } from "./BoardStyles";
 import boardData from "../../data.json";
@@ -51,11 +52,9 @@ export const Boards = () => {
         </CreateNewBoard>
       </div>
       <DarkOrLightMode />
-      <CreateNewBoard
-        startIcon={<img src={HideSidebarIcon} alt="hide sidebar" />}
-      >
+      <HideSidebar startIcon={<img src={HideSidebarIcon} alt="hide sidebar" />}>
         Hide Sidebar
-      </CreateNewBoard>
+      </HideSidebar>
     </>
   );
 };
