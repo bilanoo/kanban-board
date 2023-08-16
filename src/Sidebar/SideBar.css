@@ -21,3 +21,9 @@
   font-weight: bold;
   color: var(--black);
 }
+
+@media only screen and (min-width: 992px) {
+  .logo-container {
+    margin-top: 5px;
+  }
+}

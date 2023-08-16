@@ -23,3 +23,9 @@
   grid-column-start: 2;
   grid-column-end: -2;
 }
+
+@media only screen and (min-width: 992px) {
+  .board-container {
+    grid-template-columns: 300px 4fr;
+  }
+}
