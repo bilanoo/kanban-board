@@ -1,4 +1,5 @@
 import "./App.css";
+import { BoardColumns } from "./BoardColumns/BoardColumns";
 import { Header } from "./Header/Header";
 import { Sidebar } from "./Sidebar/Sidebar";
 
@@ -7,9 +8,7 @@ function App() {
     <div className="board-container">
       <Sidebar />
       <Header />
-      <div className="board-content">
-        <p>Board Content</p>
-      </div>
+      <BoardColumns />
     </div>
   );
 }
