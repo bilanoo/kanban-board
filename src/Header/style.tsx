@@ -1,4 +1,4 @@
-import { Button, Typography, styled } from "@mui/material";
+import { Button, IconButton, Typography, styled } from "@mui/material";
 
 export const Container = styled("div")(() => ({
   "&": {
@@ -34,5 +34,15 @@ export const AddNewTask = styled(Button)(() => ({
   },
   "&.Mui-disabled": {
     color: "var(--white)",
+    backgroundColor: "var(--light-purple)",
+  },
+}));
+
+export const EditOrDeleteBoard = styled(IconButton)(() => ({
+  "&": {
+    marginLeft: "10px",
+  },
+  "&:hover": {
+    backgroundColor: "none",
   },
 }));
