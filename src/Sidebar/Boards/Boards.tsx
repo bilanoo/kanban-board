@@ -25,7 +25,7 @@ export const Boards = () => {
   return (
     <>
       <div className="boards-container">
-        <h5>ALL BOARDS (3)</h5>
+        <h5>ALL BOARDS ({boardData.boards.length})</h5>
 
         <BoardList>
           {boardData.boards.map((board, index) => (
