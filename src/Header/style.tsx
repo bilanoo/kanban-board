@@ -25,7 +25,7 @@ export const AddNewTask = styled(Button)(() => ({
     height: "53px",
     color: "var(--white)",
     fontSize: "15px",
-    fonttWeight: 700,
+    fontWeight: 700,
     textTransform: "none",
     marginLeft: "auto",
   },
