@@ -13,12 +13,6 @@
   grid-template-rows: 1fr 8fr;
 }
 
-.header {
-  height: 100%;
-  grid-row-start: 1;
-  grid-row-end: 3;
-}
-
 .board-content {
   grid-column-start: 2;
   grid-column-end: -2;
