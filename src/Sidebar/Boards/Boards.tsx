@@ -1,18 +1,15 @@
 import "./Boards.css";
 import BoardIcon from "../../assets/icon-board.svg";
-import HideSidebarIcon from "../../assets/icon-hide-sidebar.svg";
 import {
   BoardContent,
   BoardList,
   BoardText,
   CreateNewBoard,
   EachBoard,
-  HideSidebar,
   IconContent,
 } from "./BoardStyles";
 import boardData from "../../data.json";
 import { useState } from "react";
-import { DarkOrLightMode } from "./DarkOrLightMode/DarkOrLightMode";
 export const Boards = () => {
   const [selected, setSelectedIndex] = useState(1);
 
@@ -51,10 +48,6 @@ export const Boards = () => {
           + Create New Board
         </CreateNewBoard>
       </div>
-      <DarkOrLightMode />
-      <HideSidebar startIcon={<img src={HideSidebarIcon} alt="hide sidebar" />}>
-        Hide Sidebar
-      </HideSidebar>
     </>
   );
 };

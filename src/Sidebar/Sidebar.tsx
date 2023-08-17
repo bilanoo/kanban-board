@@ -2,6 +2,10 @@ import "./SideBar.css";
 import LogoLight from "../assets/logo-light.svg";
 import { Boards } from "./Boards/Boards";
 
+import HideSidebarIcon from "../assets/icon-hide-sidebar.svg";
+import { DarkOrLightMode } from "./Boards/DarkOrLightMode/DarkOrLightMode";
+import { HideSidebar } from "./Boards/BoardStyles";
+
 export const Sidebar = () => {
   return (
     <div className="sidebar-container">
@@ -15,6 +19,10 @@ export const Sidebar = () => {
       </div>
 
       <Boards />
+      <DarkOrLightMode />
+      <HideSidebar startIcon={<img src={HideSidebarIcon} alt="hide sidebar" />}>
+        Hide Sidebar
+      </HideSidebar>
     </div>
   );
 };
