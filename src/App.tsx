@@ -8,7 +8,15 @@ function App() {
     <div className="board-container">
       <Header />
 
-      <div style={{ display: "flex", flexDirection: "row", width: "100%" }}>
+      <div
+        className="content-container"
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          width: "100%",
+          height: "100%",
+        }}
+      >
         <Sidebar />
         <BoardColumns />
       </div>

@@ -7,6 +7,7 @@ export const NoColumnsContainer = styled("div")(() => ({
     justifyContent: "center",
     alignItems: "center",
     height: "100%",
+    width: "100%",
   },
 }));
 
@@ -17,6 +18,7 @@ export const NoColumnsTextInfo = styled(Typography)(() => ({
     color: "var(--lighter-grey)",
     paddingLeft: "24px",
     paddingRight: "24px",
+    marginBottom: "20px",
   },
 }));
 
