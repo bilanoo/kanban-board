@@ -4,25 +4,3 @@
   display: flex;
   flex-direction: column;
 }
-
-.logo-container {
-  display: flex;
-  align-items: center;
-  margin-left: 26px;
-  margin-top: 20px;
-}
-
-.logo {
-  float: left;
-}
-
-.logo-name {
-  font-weight: bold;
-  color: var(--black);
-}
-
-@media only screen and (min-width: 992px) {
-  .logo-container {
-    margin-top: 14px;
-  }
-}

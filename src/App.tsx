@@ -6,9 +6,10 @@ import { Sidebar } from "./Sidebar/Sidebar";
 function App() {
   return (
     <div className="board-container">
-      <Sidebar />
-      <div style={{ display: "flex", flexDirection: "column", width: "100%" }}>
-        <Header />
+      <Header />
+
+      <div style={{ display: "flex", flexDirection: "row", width: "100%" }}>
+        <Sidebar />
         <BoardColumns />
       </div>
     </div>

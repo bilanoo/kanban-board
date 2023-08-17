@@ -9,9 +9,24 @@ export const Container = styled("div")(() => ({
   },
 }));
 
+export const LogoContainer = styled("div")(() => ({
+  "&": {
+    display: "flex",
+    alignItems: "center",
+    marginLeft: "26px",
+  },
+}));
+
+export const LogoName = styled("h1")(() => ({
+  "&": {
+    fontWeight: "bold",
+    color: "var(--black)",
+  },
+}));
+
 export const BoardSelected = styled(Typography)(() => ({
   "&": {
-    marginLeft: "24px",
+    marginLeft: "95px",
     fontSize: "22px",
     fontWeight: 700,
     color: "var(--black)",
