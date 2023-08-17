@@ -1,10 +1,11 @@
-import { Button, IconButton, Typography, styled } from "@mui/material";
+import { Button, Typography, styled } from "@mui/material";
 
 export const Container = styled("div")(() => ({
   "&": {
     borderBottom: "1px solid var(--pastel-grey)",
     display: "flex",
     alignItems: "center",
+    minHeight: "80px",
   },
 }));
 

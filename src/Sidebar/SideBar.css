@@ -1,6 +1,5 @@
 .sidebar-container {
-  grid-row-start: 1;
-  grid-row-end: 3;
+  min-width: 260px;
   border: 1px solid var(--pastel-grey);
   display: flex;
   flex-direction: column;
@@ -24,6 +23,6 @@
 
 @media only screen and (min-width: 992px) {
   .logo-container {
-    margin-top: 5px;
+    margin-top: 14px;
   }
 }

@@ -3,6 +3,7 @@ import { IconButton, Menu, styled } from "@mui/material";
 export const EditOrDeleteButton = styled(IconButton)(() => ({
   "&": {
     marginLeft: "10px",
+    marginRight: "10px",
   },
   "&:hover": {
     backgroundColor: "none",

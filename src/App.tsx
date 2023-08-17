@@ -7,8 +7,10 @@ function App() {
   return (
     <div className="board-container">
       <Sidebar />
-      <Header />
-      <BoardColumns />
+      <div style={{ display: "flex", flexDirection: "column", width: "100%" }}>
+        <Header />
+        <BoardColumns />
+      </div>
     </div>
   );
 }

@@ -8,18 +8,13 @@
 .board-container {
   width: 100%;
   height: 100%;
-  display: grid;
-  grid-template-columns: 1fr 2fr;
-  grid-template-rows: 1fr 8fr;
+  display: flex;
 }
 
 .board-content {
-  grid-column-start: 2;
-  grid-column-end: -2;
 }
 
 @media only screen and (min-width: 992px) {
   .board-container {
-    grid-template-columns: 300px 4fr;
   }
 }

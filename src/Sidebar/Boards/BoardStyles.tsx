@@ -85,6 +85,8 @@ export const HideSidebar = styled(Button)(() => ({
     paddingLeft: "20px",
     borderRadius: "0 100px 100px 0",
     textTransform: "none",
+    marginBottom: "20px",
+    marginTop: "15px",
   },
   "&&.MuiButton-text": {
     color: "var(--lighter-grey)",
