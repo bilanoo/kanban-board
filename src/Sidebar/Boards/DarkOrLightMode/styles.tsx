@@ -1,12 +1,12 @@
 import { Switch, styled } from "@mui/material";
 
-export const Container = styled("div")(() => ({
+export const Container = styled("div")(({ theme }) => ({
   "&": {
     display: "flex",
     alignItems: "center",
     marginTop: "auto",
     justifyContent: "center",
-    backgroundColor: "var(--empty-column-color)",
+    backgroundColor: theme.custom.contentColor,
     paddingTop: "10px",
     paddingBottom: "10px",
     marginRight: "12px",
@@ -35,7 +35,7 @@ export const AntSwitch = styled(Switch)(({ theme }) => ({
       color: "#fff",
       "& + .MuiSwitch-track": {
         opacity: 1,
-        backgroundColor: "var(--dark-purple)",
+        backgroundColor: theme.palette.primary.contrastText,
       },
     },
   },
@@ -51,7 +51,7 @@ export const AntSwitch = styled(Switch)(({ theme }) => ({
   "& .MuiSwitch-track": {
     borderRadius: 16 / 2,
     opacity: 1,
-    backgroundColor: "var(--dark-purple)",
+    backgroundColor: theme.palette.primary.contrastText,
     boxSizing: "border-box",
   },
 }));

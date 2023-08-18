@@ -1,4 +1,4 @@
-import { IconButton, Menu, styled } from "@mui/material";
+import { IconButton, Menu, MenuItem, styled } from "@mui/material";
 
 export const EditOrDeleteButton = styled(IconButton)(() => ({
   "&": {
@@ -23,5 +23,19 @@ export const PopUpMenu = styled(Menu)(() => ({
     "&&.MuiPaper-root": {
       marginRight: "30px",
     },
+  },
+}));
+
+export const EditMenuOption = styled(MenuItem)(({ theme }) => ({
+  "&": {
+    color: theme.palette.text.primary,
+    width: "160px",
+  },
+}));
+
+export const DeleteMenuOption = styled(MenuItem)(({ theme }) => ({
+  "&": {
+    color: theme.custom.delete,
+    width: "160px",
   },
 }));

@@ -1,4 +1,4 @@
-import { Button, keyframes, styled } from "@mui/material";
+import { Box, Button, keyframes, styled } from "@mui/material";
 // Define a keyframe animation
 const stretchToShrink = keyframes`
   0% {
@@ -8,7 +8,7 @@ const stretchToShrink = keyframes`
     width: 55px;
   }
 `;
-export const DisplaySidebarButton = styled(Button)(() => ({
+export const DisplaySidebarButton = styled(Button)(({ theme }) => ({
   "&": {
     margin: 0,
     justifyContent: "start",
@@ -28,11 +28,17 @@ export const DisplaySidebarButton = styled(Button)(() => ({
     backgroundColor: "var(--dark-purple)",
     animation: `${stretchToShrink} 0.2s ease-in-out forwards`, // Apply the animation
   },
-  "&&.MuiButton-text": {
-    color: "var(--lighter-grey)",
-  },
-
   "&:hover": {
-    backgroundColor: "var(--light-purple)",
+    backgroundColor: theme.custom.lightPurple,
+  },
+}));
+
+export const Container = styled(Box)(({ theme }) => ({
+  "&": {
+    backgroundColor: theme.palette.primary.main,
+    minWidth: "260px",
+    border: `1px solid ${theme.custom.borderColor}`,
+    display: "flex",
+    flexDirection: "column",
   },
 }));

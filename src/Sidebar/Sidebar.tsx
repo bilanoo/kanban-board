@@ -1,4 +1,3 @@
-import "./SideBar.css";
 import { Boards } from "./Boards/Boards";
 
 import HideSidebarIcon from "../assets/icon-hide-sidebar.svg";
@@ -6,7 +5,7 @@ import { DarkOrLightMode } from "./Boards/DarkOrLightMode/DarkOrLightMode";
 import { HideSidebar } from "./Boards/BoardStyles";
 import IconShowSidebar from "../assets/icon-show-sidebar.svg";
 import { useState } from "react";
-import { DisplaySidebarButton } from "./style";
+import { Container, DisplaySidebarButton } from "./style";
 
 export const Sidebar = () => {
   const [displaySidebar, setDisplaySidebar] = useState<boolean>(true);
@@ -17,11 +16,10 @@ export const Sidebar = () => {
     setDisplaySidebar(!displaySidebar);
   }
 
-  console.log(displaySidebar);
   return (
     <>
       {displaySidebar ? (
-        <div className="sidebar-container">
+        <Container>
           <Boards />
           <DarkOrLightMode />
           <HideSidebar
@@ -30,7 +28,7 @@ export const Sidebar = () => {
           >
             Hide Sidebar
           </HideSidebar>
-        </div>
+        </Container>
       ) : (
         <DisplaySidebarButton
           startIcon={<img src={IconShowSidebar} alt="display sidebar button" />}

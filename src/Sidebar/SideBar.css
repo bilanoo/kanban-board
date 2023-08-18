@@ -1,6 +1,0 @@
-.sidebar-container {
-  min-width: 260px;
-  border: 1px solid var(--pastel-grey);
-  display: flex;
-  flex-direction: column;
-}

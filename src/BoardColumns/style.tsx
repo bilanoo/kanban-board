@@ -1,6 +1,6 @@
 import { Button, Typography, styled } from "@mui/material";
 
-export const NoColumnsContainer = styled("div")(() => ({
+export const NoColumnsContainer = styled("div")(({ theme }) => ({
   "&": {
     display: "flex",
     flexDirection: "column",
@@ -8,6 +8,7 @@ export const NoColumnsContainer = styled("div")(() => ({
     alignItems: "center",
     height: "100%",
     width: "100%",
+    backgroundColor: theme.custom.columnContentColor,
   },
 }));
 

@@ -1,8 +1,9 @@
 import { Button, Typography, styled } from "@mui/material";
 
-export const Container = styled("div")(() => ({
+export const Container = styled("div")(({ theme }) => ({
   "&": {
-    borderBottom: "1px solid var(--pastel-grey)",
+    backgroundColor: theme.palette.primary.main,
+    borderBottom: `1px solid ${theme.custom.borderColor}`,
     display: "flex",
     alignItems: "center",
     minHeight: "80px",
@@ -17,19 +18,12 @@ export const LogoContainer = styled("div")(() => ({
   },
 }));
 
-export const LogoName = styled("h1")(() => ({
+export const BoardSelected = styled(Typography)(({ theme }) => ({
   "&": {
-    fontWeight: "bold",
-    color: "var(--black)",
-  },
-}));
-
-export const BoardSelected = styled(Typography)(() => ({
-  "&": {
-    marginLeft: "95px",
+    marginLeft: "210px",
     fontSize: "22px",
     fontWeight: 700,
-    color: "var(--black)",
+    color: theme.palette.text.secondary,
   },
 }));
 

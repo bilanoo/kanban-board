@@ -1,8 +1,12 @@
-import { EditOrDeleteButton, PopUpMenu } from "./style";
+import {
+  DeleteMenuOption,
+  EditMenuOption,
+  EditOrDeleteButton,
+  PopUpMenu,
+} from "./style";
 
 import VerticalEllipsis from "../../assets/icon-vertical-ellipsis.svg";
 import { useState } from "react";
-import { MenuItem } from "@mui/material";
 
 export const EditOrDeleteBoard = () => {
   const [modalStatus, setModalStatus] = useState<null | HTMLElement>(null);
@@ -31,15 +35,8 @@ export const EditOrDeleteBoard = () => {
         onClose={handleClose}
         MenuListProps={{ "aria-labelledby": "basic-button" }}
       >
-        <MenuItem
-          onClick={handleClose}
-          sx={{ color: "var(--lighter-grey)", width: "160px" }}
-        >
-          Edit Board
-        </MenuItem>
-        <MenuItem onClick={handleClose} sx={{ color: "var(--red)" }}>
-          Delete Board
-        </MenuItem>
+        <EditMenuOption onClick={handleClose}>Edit Board</EditMenuOption>
+        <DeleteMenuOption onClick={handleClose}>Delete Board</DeleteMenuOption>
       </PopUpMenu>
     </>
   );

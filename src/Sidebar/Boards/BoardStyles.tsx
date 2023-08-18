@@ -5,8 +5,17 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
+  Typography,
   styled,
 } from "@mui/material";
+
+export const Container = styled("div")(() => ({
+  "&": {
+    display: "flex",
+    flexDirection: "column",
+    textAlign: "start",
+  },
+}));
 
 export const BoardList = styled(List)(() => ({
   "&": {
@@ -24,23 +33,23 @@ export const EachBoard = styled(ListItem)(() => ({
   },
 }));
 
-export const BoardContent = styled(ListItemButton)(() => ({
+export const BoardContent = styled(ListItemButton)(({ theme }) => ({
   "&": {
     paddingLeft: "24px",
     paddingRight: "0",
     borderRadius: "0 100px 100px 0",
   },
   "&:hover": {
-    backgroundColor: "var(--onhover-board)",
+    backgroundColor: theme.custom.onHover,
     borderRadius: "0 100px 100px 0",
   },
   "&:focus": {
-    backgroundColor: "var(--dark-purple)",
-    color: "var(--white)",
+    backgroundColor: theme.palette.primary.contrastText,
+    color: theme.custom.white,
   },
   "&&.Mui-selected": {
-    backgroundColor: "var(--dark-purple)",
-    color: "var(--white)",
+    backgroundColor: theme.palette.primary.contrastText,
+    color: theme.custom.white,
   },
 }));
 
@@ -61,10 +70,10 @@ export const BoardText = styled(ListItemText)(() => ({
   },
 }));
 
-export const CreateNewBoard = styled(Button)(() => ({
+export const CreateNewBoard = styled(Button)(({ theme }) => ({
   "&": {
     margin: 0,
-    color: "var(--dark-purple)",
+    color: theme.palette.primary.contrastText,
     justifyContent: "start",
     paddingLeft: "28px",
     fontWeight: "700",
@@ -75,7 +84,7 @@ export const CreateNewBoard = styled(Button)(() => ({
   },
 }));
 
-export const HideSidebar = styled(Button)(() => ({
+export const HideSidebar = styled(Button)(({ theme }) => ({
   "&": {
     margin: 0,
     justifyContent: "start",
@@ -89,10 +98,23 @@ export const HideSidebar = styled(Button)(() => ({
     marginTop: "15px",
   },
   "&&.MuiButton-text": {
-    color: "var(--lighter-grey)",
+    color: theme.palette.text.primary,
   },
 
   "&:hover": {
-    backgroundColor: "var(--onhover-board)",
+    backgroundColor: theme.custom.onHover,
+  },
+}));
+
+export const AllBoardsText = styled(Typography)(({ theme }) => ({
+  "&": {
+    fontSize: "12px",
+    fontStyle: "normal",
+    fontWeight: 700,
+    lineHeight: "normal",
+    letterSpacing: "2.4px",
+    marginLeft: "24px",
+    marginTop: "30px",
+    color: theme.palette.text.primary,
   },
 }));

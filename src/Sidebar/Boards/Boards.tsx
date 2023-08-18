@@ -1,9 +1,10 @@
-import "./Boards.css";
 import BoardIcon from "../../assets/icon-board.svg";
 import {
+  AllBoardsText,
   BoardContent,
   BoardList,
   BoardText,
+  Container,
   CreateNewBoard,
   EachBoard,
   IconContent,
@@ -21,8 +22,10 @@ export const Boards = () => {
   };
   return (
     <>
-      <div className="boards-container">
-        <h5>ALL BOARDS ({boardData.boards.length})</h5>
+      <Container className="boards-container">
+        <AllBoardsText variant="h6">
+          ALL BOARDS ({boardData.boards.length})
+        </AllBoardsText>
 
         <BoardList>
           {boardData.boards.map((board, index) => (
@@ -47,7 +50,7 @@ export const Boards = () => {
         >
           + Create New Board
         </CreateNewBoard>
-      </div>
+      </Container>
     </>
   );
 };
