@@ -10,6 +10,7 @@ declare module "@mui/material/styles" {
       lightPurple: string;
       delete: string;
       columnContentColor: string;
+      boxShadowColor: string;
     };
   }
   // allow configuration using `createTheme`
@@ -22,6 +23,7 @@ declare module "@mui/material/styles" {
       lightPurple?: string;
       delete?: string;
       columnContentColor?: string;
+      boxShadowColor?: string;
     };
   }
 }
@@ -53,5 +55,7 @@ export const getDesignTokens = (mode: PaletteMode) => ({
     lightPurple: "#a8a4ff",
     delete: "#EA5555",
     columnContentColor: mode === "light" ? "#E4EBFA" : "#20212C",
+    boxShadowColor:
+      mode === "light" ? "rgba(54, 78, 126, 0.10)" : "rgb(173, 216, 230)",
   },
 });
