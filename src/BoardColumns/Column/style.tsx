@@ -60,6 +60,7 @@ export const PaperContainer = styled(Paper)(({ theme }) => ({
     boxShadow: `0px 4px 6px 0px ${theme.custom.boxShadowColor}`,
     backgroundColor: theme.palette.primary.main,
     cursor: "pointer",
+    flexGrow: "0.03",
   },
 }));
 
@@ -67,6 +68,7 @@ export const TaskTitle = styled(Typography)(({ theme }) => ({
   "&": {
     color: theme.palette.text.secondary,
     paddingLeft: "16px",
+    textAlign: "start",
     alignSelf: "start",
     fontSize: "15px",
     fontWeight: 700,
@@ -80,5 +82,6 @@ export const AmountOfSubtasks = styled(Typography)(({ theme }) => ({
     alignSelf: "start",
     fontSize: "12px",
     fontWeight: 700,
+    paddingnBottom: "23px",
   },
 }));
