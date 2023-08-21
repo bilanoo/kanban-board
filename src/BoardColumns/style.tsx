@@ -49,5 +49,6 @@ export const ContentFoundContainer = styled("div")(({ theme }) => ({
     width: "100%",
     display: "flex",
     backgroundColor: theme.custom.columnContentColor,
+    overflow: "auto",
   },
 }));
