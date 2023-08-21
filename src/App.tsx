@@ -3,18 +3,32 @@ import "./App.css";
 import { BoardColumns } from "./BoardColumns/BoardColumns";
 import { Header } from "./Header/Header";
 import { Sidebar } from "./Sidebar/Sidebar";
-import { useMemo } from "react";
+import { useLayoutEffect, useMemo } from "react";
 import { getDesignTokens } from "./theme";
 import { useCurrentMode } from "./stores/lightOrDarkMode.store";
+import kanbanData from "./data.json";
+import useBoardContentStore, {
+  useSelectedBoard,
+} from "./stores/BoardContent.store";
 
 function App() {
   const lightOrDarkMode = useCurrentMode();
+  const { actions } = useBoardContentStore((state) => state);
+  const selectedBoard = useSelectedBoard();
 
   // Update the theme only if the mode changes
   const theme = useMemo(
     () => createTheme(getDesignTokens(lightOrDarkMode)),
     [lightOrDarkMode]
   );
+
+  useLayoutEffect(() => {
+    const selectedBoardContent = kanbanData.boards.filter(
+      (EachBoard) => EachBoard.name === selectedBoard
+    );
+
+    actions.setSelectedBoardContent(selectedBoardContent[0]);
+  }, []);
   return (
     <ThemeProvider theme={theme}>
       <Box className="board-container">

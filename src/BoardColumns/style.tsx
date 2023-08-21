@@ -42,3 +42,12 @@ export const AddNewColumn = styled(Button)(() => ({
     backgroundColor: "var(--light-purple)",
   },
 }));
+
+export const ContentFoundContainer = styled("div")(({ theme }) => ({
+  "&": {
+    height: "100%",
+    width: "100%",
+    display: "flex",
+    backgroundColor: theme.custom.columnContentColor,
+  },
+}));

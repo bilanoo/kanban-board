@@ -116,5 +116,6 @@ export const AllBoardsText = styled(Typography)(({ theme }) => ({
     marginLeft: "24px",
     marginTop: "30px",
     color: theme.palette.text.primary,
+    paddingBottom: "19px",
   },
 }));

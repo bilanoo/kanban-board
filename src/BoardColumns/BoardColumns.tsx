@@ -1,7 +1,15 @@
 import { Column } from "./Column/Column";
-import { AddNewColumn, NoColumnsContainer, NoColumnsTextInfo } from "./style";
+import {
+  AddNewColumn,
+  ContentFoundContainer,
+  NoColumnsContainer,
+  NoColumnsTextInfo,
+} from "./style";
+import { useSelectedBoardContent } from "../stores/BoardContent.store";
 
 export const BoardColumns = () => {
+  const selectedBoardContent = useSelectedBoardContent();
+
   return (
     // <NoColumnsContainer className="board-content">
     //   <NoColumnsTextInfo>
@@ -9,6 +17,12 @@ export const BoardColumns = () => {
     //   </NoColumnsTextInfo>
     //   <AddNewColumn> + Add New Column</AddNewColumn>
     // </NoColumnsContainer>
-    <Column />
+    <>
+      <ContentFoundContainer>
+        {selectedBoardContent.columns.map((eachTask) => (
+          <Column eachBoard={eachTask} key={eachTask.name} />
+        ))}
+      </ContentFoundContainer>
+    </>
   );
 };

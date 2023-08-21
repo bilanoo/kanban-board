@@ -3,10 +3,12 @@ import { EditOrDeleteBoard } from "./EditOrDeleteBoard/EditOrDeleteBoard";
 import LogoLight from "../assets/logo-light.svg";
 import LogoDark from "../assets/logo-dark.svg";
 import { Container, BoardSelected, AddNewTask, LogoContainer } from "./style";
-import { useCurrentMode } from "../stores/lightOrDarkMode.store";
+import { useCurrentMode } from "../stores/LightOrDarkMode.store";
+import { useSelectedBoard } from "../stores/BoardContent.store";
 
 export const Header = () => {
   const lightOrDarkMode = useCurrentMode();
+  const selectedBoard = useSelectedBoard();
   return (
     <Container>
       <LogoContainer className="logo-container">
@@ -19,7 +21,7 @@ export const Header = () => {
           />
         </div>
       </LogoContainer>
-      <BoardSelected variant="h6">Platform Launch</BoardSelected>
+      <BoardSelected variant="h6">{selectedBoard}</BoardSelected>
       <AddNewTask disabled> + Add New Task</AddNewTask>
       <EditOrDeleteBoard />
     </Container>

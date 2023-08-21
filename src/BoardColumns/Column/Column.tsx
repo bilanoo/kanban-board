@@ -1,3 +1,4 @@
+import { Columns, Tasks } from "../../stores/BoardContent.store";
 import {
   TaskColoredBall,
   Container,
@@ -9,18 +10,28 @@ import {
   AmountOfSubtasks,
 } from "./style";
 
-export const Column = () => {
+interface ColumnProps {
+  eachBoard: Columns;
+}
+
+export const Column = ({ eachBoard }: ColumnProps) => {
   return (
     <Container className="each-column">
       <ContentContainer>
         <TaskContainer>
           <TaskColoredBall />
-          <TaskName variant="h6">TODO (4)</TaskName>
+          <TaskName variant="h6">
+            {eachBoard.name} ({eachBoard.tasks.length})
+          </TaskName>
         </TaskContainer>
-        <PaperContainer elevation={0}>
-          <TaskTitle variant="h6">Build UI for onboarding flow</TaskTitle>
-          <AmountOfSubtasks>0 of 3 subtasks</AmountOfSubtasks>
-        </PaperContainer>
+        {eachBoard.tasks.map((everyTask: Tasks) => (
+          <PaperContainer elevation={0} key={everyTask.title}>
+            <TaskTitle variant="h6">{everyTask.title}</TaskTitle>
+            <AmountOfSubtasks>
+              0 of {everyTask.subtasks.length} subtasks
+            </AmountOfSubtasks>
+          </PaperContainer>
+        ))}
       </ContentContainer>
     </Container>
   );

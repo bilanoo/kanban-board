@@ -1,11 +1,10 @@
 import { Paper, Typography, styled } from "@mui/material";
 
-export const Container = styled("div")(({ theme }) => ({
+export const Container = styled("div")(() => ({
   "&": {
     display: "flex",
-    width: "100%",
+    width: "",
     height: "100%",
-    backgroundColor: theme.custom.columnContentColor,
   },
 }));
 
@@ -14,7 +13,6 @@ export const ContentContainer = styled("div")(() => ({
     display: "flex",
     flexDirection: "column",
     width: "300px",
-    height: "100%",
     marginTop: "24px",
     marginLeft: "24px",
   },
@@ -57,10 +55,11 @@ export const PaperContainer = styled(Paper)(({ theme }) => ({
     width: "100%",
     minHeight: "88px",
     borderRadius: "8px",
-    boxShadow: `0px 4px 6px 0px ${theme.custom.boxShadowColor}`,
+    boxShadow: `0px 1px 2px 0px ${theme.custom.boxShadowColor}`,
     backgroundColor: theme.palette.primary.main,
     cursor: "pointer",
-    flexGrow: "0.03",
+    flexGrow: "0.06",
+    marginBottom: "20px",
   },
 }));
 
