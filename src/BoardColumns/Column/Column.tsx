@@ -19,7 +19,13 @@ export const Column = ({ eachBoard }: ColumnProps) => {
     <Container className="each-column">
       <ContentContainer>
         <TaskContainer>
-          <TaskColoredBall />
+          <TaskColoredBall
+            style={{
+              backgroundColor: `#${Math.floor(
+                Math.random() * 16777215
+              ).toString(16)}`,
+            }}
+          />
           <TaskName variant="h6">
             {eachBoard.name} ({eachBoard.tasks.length})
           </TaskName>

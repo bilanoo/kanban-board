@@ -33,7 +33,6 @@ export const TaskColoredBall = styled("div")(() => ({
     width: "15px",
     height: "15px",
     borderRadius: "50%",
-    backgroundColor: "red",
   },
 }));
 
