@@ -5,18 +5,38 @@ import {
   NoColumnsContainer,
   NoColumnsTextInfo,
 } from "./style";
-import { useSelectedBoardContent } from "../stores/BoardContent.store";
+import useBoardContentStore, {
+  useSelectedBoardContent,
+} from "../stores/BoardContent.store";
+import {
+  DragDropContext,
+  DropResult,
+  ResponderProvided,
+} from "react-beautiful-dnd";
 
 export const BoardColumns = () => {
   const selectedBoardContent = useSelectedBoardContent();
+
+  const actions = useBoardContentStore((state) => state.actions);
+
+  console.log(selectedBoardContent);
+
+  function handleDragEnd(
+    result: DropResult,
+    provided: ResponderProvided
+  ): void {
+    actions.updateSelectedBoardContentOnDragEnd(result);
+  }
 
   return (
     <>
       {selectedBoardContent.columns.length ? (
         <ContentFoundContainer>
-          {selectedBoardContent.columns.map((eachTask) => (
-            <Column eachBoard={eachTask} key={eachTask.name} />
-          ))}
+          <DragDropContext onDragEnd={handleDragEnd}>
+            {selectedBoardContent.columns.map((eachTask, index) => (
+              <Column eachBoard={eachTask} key={eachTask.name} />
+            ))}
+          </DragDropContext>
         </ContentFoundContainer>
       ) : (
         <NoColumnsContainer className="board-content">

@@ -1,3 +1,4 @@
+import { Draggable, Droppable } from "react-beautiful-dnd";
 import { Columns, Tasks } from "../../stores/BoardContent.store";
 import {
   TaskColoredBall,
@@ -30,14 +31,34 @@ export const Column = ({ eachBoard }: ColumnProps) => {
             {eachBoard.name} ({eachBoard.tasks.length})
           </TaskName>
         </TaskContainer>
-        {eachBoard.tasks.map((everyTask: Tasks) => (
-          <PaperContainer elevation={0} key={everyTask.title}>
-            <TaskTitle variant="h6">{everyTask.title}</TaskTitle>
-            <AmountOfSubtasks>
-              0 of {everyTask.subtasks.length} subtasks
-            </AmountOfSubtasks>
-          </PaperContainer>
-        ))}
+        <Droppable droppableId={eachBoard.name}>
+          {(provided, snapshot) => (
+            <div {...provided.droppableProps} ref={provided.innerRef}>
+              {eachBoard.tasks.map((everyTask: Tasks, taskIndex: number) => (
+                <Draggable
+                  key={everyTask.title}
+                  draggableId={everyTask.title}
+                  index={taskIndex}
+                >
+                  {(provided, snapshot) => (
+                    <PaperContainer
+                      elevation={0}
+                      {...provided.draggableProps}
+                      {...provided.dragHandleProps}
+                      ref={provided.innerRef}
+                    >
+                      <TaskTitle variant="h6">{everyTask.title}</TaskTitle>
+                      <AmountOfSubtasks>
+                        0 of {everyTask.subtasks.length} subtasks
+                      </AmountOfSubtasks>
+                    </PaperContainer>
+                  )}
+                </Draggable>
+              ))}
+              {provided.placeholder}
+            </div>
+          )}
+        </Droppable>
       </ContentContainer>
     </Container>
   );
