@@ -5,7 +5,7 @@ import { Header } from "./Header/Header";
 import { Sidebar } from "./Sidebar/Sidebar";
 import { useLayoutEffect, useMemo } from "react";
 import { getDesignTokens } from "./theme";
-import { useCurrentMode } from "./stores/lightOrDarkMode.store";
+import { useCurrentMode } from "./stores/LightOrDarkMode.store";
 import kanbanData from "./data.json";
 import useBoardContentStore, {
   useSelectedBoard,
