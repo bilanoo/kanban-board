@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import kanbanData from "../data.json";
 interface SubTasks {
   isCompleted: boolean;
   title: string;
@@ -20,20 +21,27 @@ interface SelectedBoardContent {
   name: string;
 }
 
+interface KanbanDataProps {
+  boards: SelectedBoardContent[];
+}
 interface BoardContentActions {
   setSelectedBoard: (selectedBoard: string) => void;
   setSelectedBoardContent: (selectedBoard: SelectedBoardContent) => void;
   updateSelectedBoardContentOnDragEnd: (result: any) => void;
+  setKanbanData: (updatedData: KanbanDataProps) => void;
 }
+
 interface BoardContentStore {
   selectedBoard: string;
   selectedBoardContent: SelectedBoardContent;
+  kanbanData: KanbanDataProps;
   actions: BoardContentActions;
 }
 
 const useBoardContentStore = create<BoardContentStore>((set) => ({
   selectedBoard: "Platform Launch",
   selectedBoardContent: { columns: [], name: "" },
+  kanbanData: kanbanData,
   actions: {
     setSelectedBoard: (boardSelected: string) =>
       set({ selectedBoard: boardSelected }),
@@ -105,6 +113,7 @@ const useBoardContentStore = create<BoardContentStore>((set) => ({
           },
         };
       }),
+    setKanbanData: (updatedData: KanbanDataProps) => set((state) => {}),
   },
 }));
 
