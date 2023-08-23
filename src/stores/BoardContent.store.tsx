@@ -45,41 +45,59 @@ const useBoardContentStore = create<BoardContentStore>((set) => ({
           return {};
         }
 
-        const removeFromList = (list: Tasks[], index) => {
+        const removeFromList = (
+          list: Tasks[],
+          index: number
+        ): [Tasks, Tasks[]] => {
           const result = Array.from(list);
           const [removed] = result.splice(index, 1);
 
-          console.log("Result function: ", [removed], result);
           return [removed, result];
         };
 
-        const addToList = ({ list, index, element }: any) => {
+        const addToList = (list: Tasks[], index: number, element: Tasks) => {
           const result = Array.from(list);
           result.splice(index, 0, element);
           return result;
         };
-        const copyofList = [...state.selectedBoardContent.columns];
-        let sourceList = copyofList.filter(
+        const copyofList: Columns[] = [...state.selectedBoardContent.columns];
+        const sourceList: Columns[] = copyofList.filter(
           (eachColumn) => eachColumn.name === result.source.droppableId
         );
+        // Find the object with the matching name
+        const matchingObjectIndex: number = copyofList.findIndex(
+          (obj) => obj.name === result.source.droppableId
+        );
 
-        console.log(result.source.droppableId, result.source.index, copyofList);
         const [removedElement, newSourceList] = removeFromList(
           sourceList[0].tasks,
           result.source.index
         );
-
-        copyofList[result.source.index] = {
-          ...copyofList[result.source.index],
+        // Create a new object with updated tasks array
+        const updatedObject: Columns = {
+          ...copyofList[matchingObjectIndex],
           tasks: newSourceList,
         };
-        console.log(
-          "new source list: ",
-          newSourceList,
-          "copy of list: ",
-          copyofList
+        // Update the original array with the updated object
+        copyofList[matchingObjectIndex] = updatedObject;
+
+        const destinationList: Columns[] = copyofList.filter(
+          (eachColumn) => eachColumn.name === result.destination.droppableId
         );
 
+        const matchingDestinationObjectIndex: number = copyofList.findIndex(
+          (obj) => obj.name === result.destination.droppableId
+        );
+        const updatedDestinationObject: Columns = {
+          ...destinationList[0], // Maintain other properties
+          tasks: addToList(
+            destinationList[0].tasks,
+            result.destination.index,
+            removedElement
+          ),
+        };
+
+        copyofList[matchingDestinationObjectIndex] = updatedDestinationObject;
         return {
           selectedBoardContent: {
             ...state.selectedBoardContent,

@@ -19,8 +19,6 @@ export const BoardColumns = () => {
 
   const actions = useBoardContentStore((state) => state.actions);
 
-  console.log(selectedBoardContent);
-
   function handleDragEnd(
     result: DropResult,
     provided: ResponderProvided

@@ -1,7 +1,7 @@
 import LightModeIcon from "../../../assets/icon-light-theme.svg";
 import DarkModeIcon from "../../../assets/icon-dark-theme.svg";
 import { Container, AntSwitch } from "./styles";
-import useLightOrDarkModeStore from "../../../stores/lightOrDarkMode.store";
+import useLightOrDarkModeStore from "../../../stores/LightOrDarkMode.store";
 
 export const DarkOrLightMode = () => {
   const { setMode, mode } = useLightOrDarkModeStore((state) => state);

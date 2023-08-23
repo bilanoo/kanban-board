@@ -52,7 +52,7 @@ export const PaperContainer = styled(Paper)(({ theme }) => ({
     flexDirection: "column",
     justifyContent: "center",
     width: "100%",
-    minHeight: "88px",
+    minHeight: "100px",
     borderRadius: "8px",
     boxShadow: `0px 1px 2px 0px ${theme.custom.boxShadowColor}`,
     backgroundColor: theme.palette.primary.main,

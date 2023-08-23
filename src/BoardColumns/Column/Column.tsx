@@ -33,7 +33,11 @@ export const Column = ({ eachBoard }: ColumnProps) => {
         </TaskContainer>
         <Droppable droppableId={eachBoard.name}>
           {(provided, snapshot) => (
-            <div {...provided.droppableProps} ref={provided.innerRef}>
+            <div
+              {...provided.droppableProps}
+              ref={provided.innerRef}
+              style={{ minHeight: "100%" }}
+            >
               {eachBoard.tasks.map((everyTask: Tasks, taskIndex: number) => (
                 <Draggable
                   key={everyTask.title}
