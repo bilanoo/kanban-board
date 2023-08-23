@@ -23,7 +23,7 @@ export const NoColumnsTextInfo = styled(Typography)(() => ({
   },
 }));
 
-export const AddNewColumn = styled(Button)(() => ({
+export const AddNewColumnButton = styled(Button)(() => ({
   "&": {
     backgroundColor: "var(--dark-purple)",
     borderRadius: "24px",

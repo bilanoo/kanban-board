@@ -11,6 +11,7 @@ declare module "@mui/material/styles" {
       delete: string;
       columnContentColor: string;
       boxShadowColor: string;
+      emptyColumn: string;
     };
   }
   // allow configuration using `createTheme`
@@ -24,6 +25,7 @@ declare module "@mui/material/styles" {
       delete?: string;
       columnContentColor?: string;
       boxShadowColor?: string;
+      emptyColumn?: string;
     };
   }
 }
@@ -37,10 +39,6 @@ export const getDesignTokens = (mode: PaletteMode) => ({
     background: {
       default: mode === "light" ? "#FFFFFF" : "#3E3F4E",
       paper: mode === "light" ? "#FFFFFF" : "#2B2C37",
-      emptyColumn:
-        mode === "light"
-          ? "linear-gradient(180deg, #E9EFFA 0%, rgba(233, 239, 250, 0.50) 100%)"
-          : "linear-gradient(180deg, rgba(43, 44, 55, 0.25) 0%, rgba(43, 44, 55, 0.13) 100%)",
     },
     text: {
       primary: mode === "light" ? "#828FA3" : "#828FA3",
@@ -57,5 +55,9 @@ export const getDesignTokens = (mode: PaletteMode) => ({
     columnContentColor: mode === "light" ? "#E4EBFA" : "#20212C",
     boxShadowColor:
       mode === "light" ? "rgba(54, 78, 126, 0.10)" : "rgb(173, 216, 230)",
+    emptyColumn:
+      mode === "light"
+        ? "linear-gradient(180deg,#e9effa,rgba(233,239,250,.5))"
+        : "linear-gradient(180deg, rgba(43, 44, 55, 0.25) 0%, rgba(43, 44, 55, 0.13) 100%)",
   },
 });

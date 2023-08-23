@@ -1,6 +1,6 @@
 import { Column } from "./Column/Column";
 import {
-  AddNewColumn,
+  AddNewColumnButton,
   ContentFoundContainer,
   NoColumnsContainer,
   NoColumnsTextInfo,
@@ -13,6 +13,7 @@ import {
   DropResult,
   ResponderProvided,
 } from "react-beautiful-dnd";
+import { AddNewColumn } from "./AddNewColumn";
 
 export const BoardColumns = () => {
   const selectedBoardContent = useSelectedBoardContent();
@@ -35,13 +36,14 @@ export const BoardColumns = () => {
               <Column eachBoard={eachTask} key={eachTask.name} />
             ))}
           </DragDropContext>
+          <AddNewColumn />
         </ContentFoundContainer>
       ) : (
         <NoColumnsContainer className="board-content">
           <NoColumnsTextInfo>
             This board is empty. Create a new column to get started.
           </NoColumnsTextInfo>
-          <AddNewColumn> + Add New Column</AddNewColumn>
+          <AddNewColumnButton> + Add New Column</AddNewColumnButton>
         </NoColumnsContainer>
       )}
     </>
