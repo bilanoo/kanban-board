@@ -8,11 +8,7 @@ import {
 import useBoardContentStore, {
   useSelectedBoardContent,
 } from "../stores/BoardContent.store";
-import {
-  DragDropContext,
-  DropResult,
-  ResponderProvided,
-} from "react-beautiful-dnd";
+import { DragDropContext, DropResult } from "react-beautiful-dnd";
 import { AddNewColumn } from "./AddNewColumn";
 
 export const BoardColumns = () => {
@@ -20,10 +16,7 @@ export const BoardColumns = () => {
 
   const actions = useBoardContentStore((state) => state.actions);
 
-  function handleDragEnd(
-    result: DropResult,
-    provided: ResponderProvided
-  ): void {
+  function handleDragEnd(result: DropResult): void {
     actions.updateSelectedBoardContentOnDragEnd(result);
   }
 
@@ -32,7 +25,7 @@ export const BoardColumns = () => {
       {selectedBoardContent.columns.length ? (
         <ContentFoundContainer>
           <DragDropContext onDragEnd={handleDragEnd}>
-            {selectedBoardContent.columns.map((eachTask, index) => (
+            {selectedBoardContent.columns.map((eachTask) => (
               <Column eachBoard={eachTask} key={eachTask.name} />
             ))}
           </DragDropContext>

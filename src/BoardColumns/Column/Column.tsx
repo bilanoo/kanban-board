@@ -32,7 +32,7 @@ export const Column = ({ eachBoard }: ColumnProps) => {
           </TaskName>
         </TaskContainer>
         <Droppable droppableId={eachBoard.name}>
-          {(provided, snapshot) => (
+          {(provided) => (
             <div
               {...provided.droppableProps}
               ref={provided.innerRef}
@@ -44,7 +44,7 @@ export const Column = ({ eachBoard }: ColumnProps) => {
                   draggableId={everyTask.title}
                   index={taskIndex}
                 >
-                  {(provided, snapshot) => (
+                  {(provided) => (
                     <PaperContainer
                       elevation={0}
                       {...provided.draggableProps}

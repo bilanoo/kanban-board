@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import kanbanData from "../data.json";
+import { DropResult } from "react-beautiful-dnd";
 interface SubTasks {
   isCompleted: boolean;
   title: string;
@@ -27,7 +28,7 @@ interface KanbanDataProps {
 interface BoardContentActions {
   setSelectedBoard: (selectedBoard: string) => void;
   setSelectedBoardContent: (selectedBoard: SelectedBoardContent) => void;
-  updateSelectedBoardContentOnDragEnd: (result: any) => void;
+  updateSelectedBoardContentOnDragEnd: (result: DropResult) => void;
   setKanbanData: (updatedData: KanbanDataProps) => void;
 }
 
@@ -47,7 +48,7 @@ const useBoardContentStore = create<BoardContentStore>((set) => ({
       set({ selectedBoard: boardSelected }),
     setSelectedBoardContent: (boardContent: SelectedBoardContent) =>
       set({ selectedBoardContent: boardContent }),
-    updateSelectedBoardContentOnDragEnd: (result: any) =>
+    updateSelectedBoardContentOnDragEnd: (result: DropResult) =>
       set((state) => {
         if (!result.destination) {
           return {};
@@ -90,11 +91,11 @@ const useBoardContentStore = create<BoardContentStore>((set) => ({
         copyofList[matchingObjectIndex] = updatedObject;
 
         const destinationList: Columns[] = copyofList.filter(
-          (eachColumn) => eachColumn.name === result.destination.droppableId
+          (eachColumn) => eachColumn.name === result?.destination?.droppableId
         );
 
         const matchingDestinationObjectIndex: number = copyofList.findIndex(
-          (obj) => obj.name === result.destination.droppableId
+          (obj) => obj.name === result?.destination?.droppableId
         );
         const updatedDestinationObject: Columns = {
           ...destinationList[0], // Maintain other properties
@@ -113,7 +114,10 @@ const useBoardContentStore = create<BoardContentStore>((set) => ({
           },
         };
       }),
-    setKanbanData: (updatedData: KanbanDataProps) => set((state) => {}),
+    setKanbanData: (updatedData: KanbanDataProps) =>
+      set(() => ({
+        kanbanData: updatedData,
+      })),
   },
 }));
 
