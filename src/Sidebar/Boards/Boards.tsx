@@ -9,14 +9,15 @@ import {
   EachBoard,
   IconContent,
 } from "./BoardStyles";
-import boardData from "../../data.json";
 import { useState } from "react";
-import useBoardContentStore from "../../stores/BoardContent.store";
-import kanbanData from "../../data.json";
+import useBoardContentStore, {
+  useKanbanData,
+} from "../../stores/BoardContent.store";
 export const Boards = () => {
   const [selected, setSelectedIndex] = useState(0);
 
   const actions = useBoardContentStore((state) => state.actions);
+  const kanbanData = useKanbanData();
 
   const setSelectedBoardValues = (
     event: React.MouseEvent<HTMLDivElement, MouseEvent>
@@ -40,11 +41,11 @@ export const Boards = () => {
     <>
       <Container className="boards-container">
         <AllBoardsText variant="h6">
-          ALL BOARDS ({boardData.boards.length})
+          ALL BOARDS ({kanbanData.boards.length})
         </AllBoardsText>
 
         <BoardList>
-          {boardData.boards.map((board, index) => (
+          {kanbanData.boards.map((board, index) => (
             <EachBoard key={board.name}>
               <BoardContent
                 selected={selected === index}

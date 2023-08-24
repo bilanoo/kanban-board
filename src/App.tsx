@@ -6,8 +6,8 @@ import { Sidebar } from "./Sidebar/Sidebar";
 import { useLayoutEffect, useMemo } from "react";
 import { getDesignTokens } from "./theme";
 import { useCurrentMode } from "./stores/LightOrDarkMode.store";
-import kanbanData from "./data.json";
 import useBoardContentStore, {
+  useKanbanData,
   useSelectedBoard,
 } from "./stores/BoardContent.store";
 
@@ -15,6 +15,7 @@ function App() {
   const lightOrDarkMode = useCurrentMode();
   const { actions } = useBoardContentStore((state) => state);
   const selectedBoard = useSelectedBoard();
+  const kanbanData = useKanbanData();
 
   // Update the theme only if the mode changes
   const theme = useMemo(

@@ -128,3 +128,6 @@ export const useSelectedBoard = () =>
 
 export const useSelectedBoardContent = () =>
   useBoardContentStore((state) => state.selectedBoardContent);
+
+export const useKanbanData = () =>
+  useBoardContentStore((state) => state.kanbanData);
