@@ -18,6 +18,7 @@ export const BoardColumns = () => {
 
   function handleDragEnd(result: DropResult): void {
     actions.updateSelectedBoardContentOnDragEnd(result);
+    actions.updateKanbanDataAfterMovingTask();
   }
 
   return (

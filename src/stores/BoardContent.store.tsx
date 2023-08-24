@@ -30,6 +30,7 @@ interface BoardContentActions {
   setSelectedBoardContent: (selectedBoard: SelectedBoardContent) => void;
   updateSelectedBoardContentOnDragEnd: (result: DropResult) => void;
   setKanbanData: (updatedData: KanbanDataProps) => void;
+  updateKanbanDataAfterMovingTask: () => void;
 }
 
 interface BoardContentStore {
@@ -107,12 +108,27 @@ const useBoardContentStore = create<BoardContentStore>((set) => ({
         };
 
         copyofList[matchingDestinationObjectIndex] = updatedDestinationObject;
+
         return {
           selectedBoardContent: {
             ...state.selectedBoardContent,
             columns: copyofList,
           },
         };
+      }),
+    updateKanbanDataAfterMovingTask: () =>
+      set((state) => {
+        const indexPositionOfUpdatedBoard = state.kanbanData.boards.findIndex(
+          (eachBoard) => eachBoard.name === state.selectedBoard
+        );
+
+        const updatedBoards = { ...state.kanbanData };
+
+        updatedBoards.boards[indexPositionOfUpdatedBoard] =
+          state.selectedBoardContent;
+
+        console.log(updatedBoards);
+        return { kanbanData: updatedBoards };
       }),
     setKanbanData: (updatedData: KanbanDataProps) =>
       set(() => ({
