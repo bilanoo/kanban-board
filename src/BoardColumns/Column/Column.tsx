@@ -10,6 +10,7 @@ import {
   TaskTitle,
   AmountOfSubtasks,
 } from "./style";
+import { ViewTaskModal } from "./ViewTaskModal/ViewTaskModal";
 
 interface ColumnProps {
   eachBoard: Columns;
@@ -64,6 +65,7 @@ export const Column = ({ eachBoard }: ColumnProps) => {
           )}
         </Droppable>
       </ContentContainer>
+      <ViewTaskModal />
     </Container>
   );
 };
