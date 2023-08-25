@@ -5,6 +5,7 @@ import {
   Typography,
   styled,
 } from "@mui/material";
+import { shouldForwardProp } from "@mui/system";
 
 export const Container = styled(Box)(({ theme }) => ({
   "&": {
@@ -46,13 +47,18 @@ export const CustomCheckbox = styled(Checkbox)(({ theme }) => ({
   },
 }));
 
-export const SubtaskInformation = styled(Typography)(({ theme }) => ({
-  "&": {
-    fontSize: "0.75rem",
-    fontWeight: "700",
-    lineHeight: "normal",
-    marginTop: "4px",
-    marginBottom: "4px",
-    marginLeft: "16px",
-  },
+interface TypographyProps {
+  isSelected: boolean;
+}
+export const SubtaskInformation = styled(Typography, {
+  shouldForwardProp: (prop) => prop !== "isSelected",
+})<TypographyProps>(({ theme, isSelected }) => ({
+  fontSize: "0.75rem",
+  fontWeight: "700",
+  lineHeight: "normal",
+  marginTop: "4px",
+  marginBottom: "4px",
+  marginLeft: "16px",
+  textDecorationLine: `${isSelected ? "line-through" : "none"}`,
+  color: `${isSelected ? "#828FA3" : theme.palette.text.secondary}`,
 }));

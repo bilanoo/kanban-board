@@ -11,12 +11,24 @@ interface GenericCheckboxProps {
 }
 
 export const GenericCheckbox = ({ textInformation }: GenericCheckboxProps) => {
-  const [isSelected, setIsSelected] = useState<boolean>(true);
+  const [isSelected, setIsSelected] = useState<boolean>(false);
+
+  function handleClick(
+    event: React.MouseEvent<HTMLLabelElement, MouseEvent>
+  ): void {
+    setIsSelected(!isSelected);
+  }
+
   return (
     <Container>
       <CustomControlLabel
         control={<CustomCheckbox />}
-        label={<SubtaskInformation>{textInformation}</SubtaskInformation>}
+        label={
+          <SubtaskInformation isSelected={isSelected}>
+            {textInformation}
+          </SubtaskInformation>
+        }
+        onClick={handleClick}
       />
     </Container>
   );
