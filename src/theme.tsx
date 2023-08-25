@@ -41,7 +41,7 @@ export const getDesignTokens = (mode: PaletteMode) => ({
       paper: mode === "light" ? "#FFFFFF" : "#2B2C37",
     },
     text: {
-      primary: mode === "light" ? "#828FA3" : "#828FA3",
+      primary: mode === "light" ? "#828FA3" : "#FFF",
       secondary: mode === "light" ? "#000112" : "#fff",
     },
   },

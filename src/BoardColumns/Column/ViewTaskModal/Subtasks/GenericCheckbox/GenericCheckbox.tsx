@@ -14,7 +14,8 @@ export const GenericCheckbox = ({ textInformation }: GenericCheckboxProps) => {
   const [isSelected, setIsSelected] = useState<boolean>(false);
 
   function handleClick(
-    event: React.MouseEvent<HTMLLabelElement, MouseEvent>
+    event: SyntheticEvent<Element, Event>,
+    checked: boolean
   ): void {
     setIsSelected(!isSelected);
   }
@@ -28,7 +29,7 @@ export const GenericCheckbox = ({ textInformation }: GenericCheckboxProps) => {
             {textInformation}
           </SubtaskInformation>
         }
-        onClick={handleClick}
+        onChange={handleClick}
       />
     </Container>
   );

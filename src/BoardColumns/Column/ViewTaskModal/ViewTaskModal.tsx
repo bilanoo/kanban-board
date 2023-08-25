@@ -6,6 +6,7 @@ import {
 } from "./styles";
 import verticalEllipsis from "../../../assets/icon-vertical-ellipsis.svg";
 import { Subtasks } from "./Subtasks/Subtasks";
+import { CurrentStatus } from "./CurrentStatus/CurrentStatus";
 
 export const ViewTaskModal = () => {
   return (
@@ -24,6 +25,8 @@ export const ViewTaskModal = () => {
       </TaskInformationText>
 
       <Subtasks />
+
+      <CurrentStatus />
     </DialogContainer>
   );
 };

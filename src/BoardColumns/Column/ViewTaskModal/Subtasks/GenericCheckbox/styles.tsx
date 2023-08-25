@@ -5,7 +5,6 @@ import {
   Typography,
   styled,
 } from "@mui/material";
-import { shouldForwardProp } from "@mui/system";
 
 export const Container = styled(Box)(({ theme }) => ({
   "&": {
@@ -40,6 +39,7 @@ export const CustomCheckbox = styled(Checkbox)(({ theme }) => ({
   "&": {
     alignSelf: "center",
     padding: "0",
+    color: "rgba(130, 143, 163, 0.25)",
   },
 
   "&.Mui-checked": {
