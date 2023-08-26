@@ -1,16 +1,22 @@
 import { IconButton, Menu, MenuItem, styled } from "@mui/material";
-
-export const EditOrDeleteButton = styled(IconButton)(() => ({
+interface ViewModalProps {
+  marginLeft: string;
+  marginRight: string;
+}
+export const EditOrDeleteButton = styled(IconButton, {
+  shouldForwardProp: (prop) => prop !== "marginLeft" && prop !== "marginRight",
+})<ViewModalProps>(({ marginLeft, marginRight }) => ({
   "&": {
-    marginLeft: "10px",
-    marginRight: "10px",
+    // 10px for both
+    marginLeft: marginLeft,
+    marginRight: marginRight,
   },
   "&:hover": {
     backgroundColor: "none",
   },
   "@media only screen and (min-width: 992px)": {
     "&": {
-      marginRight: "20px",
+      marginRight: marginRight,
     },
   },
 }));
@@ -26,9 +32,14 @@ export const PopUpMenu = styled(Menu)(() => ({
   },
 }));
 
-export const EditMenuOption = styled(MenuItem)(({ theme }) => ({
+interface MenuOptionProps {
+  textColor: string;
+}
+export const MenuOption = styled(MenuItem, {
+  shouldForwardProp: (prop) => prop !== "textColor",
+})<MenuOptionProps>(({ textColor }) => ({
   "&": {
-    color: theme.palette.text.primary,
+    color: textColor,
     width: "160px",
   },
 }));

@@ -4,6 +4,7 @@ declare module "@mui/material/styles" {
   interface Theme {
     custom: {
       onHover: string;
+      mediumGrey: string;
       contentColor: string;
       white: string;
       borderColor: string;
@@ -18,6 +19,7 @@ declare module "@mui/material/styles" {
   interface ThemeOptions {
     custom?: {
       onHover?: string;
+      mediumGrey?: string;
       contentColor?: string;
       white?: string;
       borderColor?: string;
@@ -47,6 +49,7 @@ export const getDesignTokens = (mode: PaletteMode) => ({
   },
   custom: {
     onHover: mode === "light" ? "#635fc71a" : "#FFFFFF",
+    mediumGrey: "#828FA3",
     contentColor: mode === "light" ? "#F4F7FD" : "#20212C",
     white: "#FFFFFF",
     borderColor: mode === "light" ? "#e4ebfa" : "#3E3F4E",

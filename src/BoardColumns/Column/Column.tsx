@@ -11,12 +11,24 @@ import {
   AmountOfSubtasks,
 } from "./style";
 import { ViewTaskModal } from "./ViewTaskModal/ViewTaskModal";
+import { useState } from "react";
 
 interface ColumnProps {
   eachBoard: Columns;
 }
 
 export const Column = ({ eachBoard }: ColumnProps) => {
+  const [openTaskModal, setOpenTaskModal] = useState<boolean>(false);
+
+  const handleOpenTaskModal = () => {
+    setOpenTaskModal(true);
+  };
+
+  const handleCloseTaskModal = () => {
+    setOpenTaskModal(false);
+  };
+
+  console.log(eachBoard);
   return (
     <Container className="each-column">
       <ContentContainer>
@@ -51,6 +63,7 @@ export const Column = ({ eachBoard }: ColumnProps) => {
                       {...provided.draggableProps}
                       {...provided.dragHandleProps}
                       ref={provided.innerRef}
+                      onClick={handleOpenTaskModal}
                     >
                       <TaskTitle variant="h6">{everyTask.title}</TaskTitle>
                       <AmountOfSubtasks>
@@ -65,7 +78,10 @@ export const Column = ({ eachBoard }: ColumnProps) => {
           )}
         </Droppable>
       </ContentContainer>
-      <ViewTaskModal />
+      <ViewTaskModal
+        openTaskModal={openTaskModal}
+        onClose={handleCloseTaskModal}
+      />
     </Container>
   );
 };
