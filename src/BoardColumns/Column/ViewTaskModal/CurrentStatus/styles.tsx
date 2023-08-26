@@ -12,7 +12,7 @@ export const Container = styled(Box)(() => ({
 
 export const Dropdown = styled(Select)(({ theme }) => ({
   "&": {
-    color: "red",
+    color: theme.palette.text.secondary,
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
@@ -25,11 +25,7 @@ export const Dropdown = styled(Select)(({ theme }) => ({
   },
 }));
 
-export const DropdownItem = styled(MenuItem)(() => ({
-  "&:hover": {
-    backgroundColor: "#F3F6F9 !important",
-  },
-}));
+export const DropdownItem = styled(MenuItem)(() => ({}));
 
 export const StatusLabel = styled(Typography)(({ theme }) => ({
   "&": {

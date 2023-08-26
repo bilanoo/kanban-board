@@ -61,7 +61,10 @@ export const ViewTaskModal = ({
         setSelectedTaskContent={setSelectedTaskContent}
       />
 
-      <CurrentStatus />
+      <CurrentStatus
+        currentStatusValue={selectedTaskContent.status}
+        setSelectedTaskContent={setSelectedTaskContent}
+      />
     </DialogContainer>
   );
 };
