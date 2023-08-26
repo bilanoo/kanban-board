@@ -6,7 +6,7 @@ import {
 } from "./styles";
 import { Subtasks } from "./Subtasks/Subtasks";
 import { CurrentStatus } from "./CurrentStatus/CurrentStatus";
-import { EditOrDeleteBoard } from "../../../Header/EditOrDeleteBoard/EditOrDeleteBoard";
+import { GenericVerticalDropDown } from "../../../EditOrDeleteBoard/EditOrDeleteBoard";
 import { Box } from "@mui/material";
 import { useCurrentMode } from "../../../stores/LightOrDarkMode.store";
 import { getDesignTokens } from "../../../theme";
@@ -36,7 +36,7 @@ export const ViewTaskModal = ({
         </TaskTitle>
 
         <Box sx={{ alignSelf: "center" }}>
-          <EditOrDeleteBoard
+          <GenericVerticalDropDown
             altInformation="edit or delete board"
             marginLeft="-10px"
             marginRight="0"

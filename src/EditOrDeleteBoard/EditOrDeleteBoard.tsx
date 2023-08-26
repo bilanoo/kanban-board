@@ -1,6 +1,6 @@
 import { MenuOption, EditOrDeleteButton, PopUpMenu } from "./style";
 
-import VerticalEllipsis from "../../assets/icon-vertical-ellipsis.svg";
+import VerticalEllipsis from "../assets/icon-vertical-ellipsis.svg";
 import { useState } from "react";
 
 interface MenuOption {
@@ -8,19 +8,19 @@ interface MenuOption {
   textColor: string;
 }
 
-interface EditOrDeleteModalProps {
+interface GenericVerticalDropdownProps {
   altInformation: string;
   dropdownOptions: MenuOption[];
   marginLeft: string;
   marginRight: string;
 }
 
-export const EditOrDeleteBoard = ({
+export const GenericVerticalDropDown = ({
   altInformation,
   dropdownOptions,
   marginLeft,
   marginRight,
-}: EditOrDeleteModalProps) => {
+}: GenericVerticalDropdownProps) => {
   const [modalStatus, setModalStatus] = useState<null | HTMLElement>(null);
   const open = Boolean(modalStatus);
 
@@ -31,7 +31,6 @@ export const EditOrDeleteBoard = ({
     setModalStatus(null);
   };
 
-  console.log(marginLeft, marginRight);
   return (
     <>
       <EditOrDeleteButton
@@ -53,6 +52,7 @@ export const EditOrDeleteBoard = ({
       >
         {dropdownOptions.map((eachMenuOption) => (
           <MenuOption
+            key={eachMenuOption.optionValue}
             onClick={handleClose}
             textColor={eachMenuOption.textColor}
           >

@@ -1,4 +1,4 @@
-import { EditOrDeleteBoard } from "./EditOrDeleteBoard/EditOrDeleteBoard";
+import { GenericVerticalDropDown } from "../EditOrDeleteBoard/EditOrDeleteBoard";
 
 import LogoLight from "../assets/logo-light.svg";
 import LogoDark from "../assets/logo-dark.svg";
@@ -31,7 +31,7 @@ export const Header = () => {
       </LogoContainer>
       <BoardSelected variant="h6">{selectedBoard}</BoardSelected>
       <AddNewTask disabled> + Add New Task</AddNewTask>
-      <EditOrDeleteBoard
+      <GenericVerticalDropDown
         altInformation="edit or delete task"
         marginLeft="10px"
         marginRight="10px"
