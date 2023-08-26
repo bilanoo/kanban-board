@@ -62,7 +62,6 @@ export const Column = ({ eachBoard }: ColumnProps) => {
     setOpenTaskModal(false);
   };
 
-  console.log(selectedTaskContent);
   return (
     <Container className="each-column">
       <ContentContainer>
