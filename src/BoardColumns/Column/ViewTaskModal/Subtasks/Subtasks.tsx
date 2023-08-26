@@ -26,9 +26,18 @@ export const Subtasks = ({
     });
   };
 
+  const returnAmountOfRemainingSubtasks = () => {
+    const amountOfSubtasksToFinish = subtasks.filter(
+      (eachSubtask) => eachSubtask.isCompleted === false
+    );
+
+    return amountOfSubtasksToFinish.length;
+  };
   return (
     <SubtasksContainer>
-      <SubtaskTitle>Subtasks (2 of {subtasks.length})</SubtaskTitle>
+      <SubtaskTitle>
+        Subtasks ({returnAmountOfRemainingSubtasks()} of {subtasks.length})
+      </SubtaskTitle>
 
       <SubtasksList>
         {subtasks.map((eachSubtask, indexPositionOfSubtask) => (
