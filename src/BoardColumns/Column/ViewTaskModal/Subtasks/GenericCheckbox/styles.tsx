@@ -59,6 +59,7 @@ export const SubtaskInformation = styled(Typography, {
   marginTop: "4px",
   marginBottom: "4px",
   marginLeft: "16px",
+  marginRight: "4px",
   textDecorationLine: `${isSelected ? "line-through" : "none"}`,
   color: `${isSelected ? "#828FA3" : theme.palette.text.secondary}`,
 }));
