@@ -43,7 +43,7 @@ export const ViewTaskModal = ({
         <Box sx={{ alignSelf: "center" }}>
           <GenericVerticalDropDown
             altInformation="edit or delete board"
-            marginLeft="-10px"
+            marginLeft="1px"
             marginRight="0"
             dropdownOptions={dropdownOptions}
           />
