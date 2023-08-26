@@ -11,16 +11,50 @@ import {
   AmountOfSubtasks,
 } from "./style";
 import { ViewTaskModal } from "./ViewTaskModal/ViewTaskModal";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 
 interface ColumnProps {
   eachBoard: Columns;
 }
-
+export interface selectedTaskContentProps extends Tasks {
+  columnName: string;
+  taskIndex: number | null;
+}
 export const Column = ({ eachBoard }: ColumnProps) => {
   const [openTaskModal, setOpenTaskModal] = useState<boolean>(false);
+  const [selectedTaskContent, setSelectedTaskContent] =
+    useState<selectedTaskContentProps>({
+      columnName: eachBoard.name,
+      description: "",
+      status: "",
+      subtasks: [],
+      title: "",
+      taskIndex: null,
+    });
 
-  const handleOpenTaskModal = () => {
+  const memoizedSelectedTaskContent = useMemo(
+    () => selectedTaskContent,
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [
+      selectedTaskContent.description,
+      selectedTaskContent.status,
+      selectedTaskContent.subtasks,
+      selectedTaskContent.title,
+      selectedTaskContent.taskIndex,
+    ]
+  );
+  const handleOpenTaskModal = (
+    taskSelected: Tasks,
+    taskSelectedIndex: number
+  ) => {
+    setSelectedTaskContent((prevState) => ({
+      ...prevState,
+      description: taskSelected.description,
+      status: taskSelected.status,
+      subtasks: taskSelected.subtasks,
+      title: taskSelected.title,
+      taskIndex: taskSelectedIndex,
+    }));
     setOpenTaskModal(true);
   };
 
@@ -28,7 +62,7 @@ export const Column = ({ eachBoard }: ColumnProps) => {
     setOpenTaskModal(false);
   };
 
-  console.log(eachBoard);
+  console.log(selectedTaskContent);
   return (
     <Container className="each-column">
       <ContentContainer>
@@ -63,7 +97,7 @@ export const Column = ({ eachBoard }: ColumnProps) => {
                       {...provided.draggableProps}
                       {...provided.dragHandleProps}
                       ref={provided.innerRef}
-                      onClick={handleOpenTaskModal}
+                      onClick={() => handleOpenTaskModal(everyTask, taskIndex)}
                     >
                       <TaskTitle variant="h6">{everyTask.title}</TaskTitle>
                       <AmountOfSubtasks>
@@ -79,8 +113,10 @@ export const Column = ({ eachBoard }: ColumnProps) => {
         </Droppable>
       </ContentContainer>
       <ViewTaskModal
+        selectedTaskContent={memoizedSelectedTaskContent}
         openTaskModal={openTaskModal}
         onClose={handleCloseTaskModal}
+        setSelectedTaskContent={setSelectedTaskContent}
       />
     </Container>
   );

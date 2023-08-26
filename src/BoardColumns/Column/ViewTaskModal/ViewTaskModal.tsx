@@ -10,15 +10,23 @@ import { GenericVerticalDropDown } from "../../../EditOrDeleteBoard/EditOrDelete
 import { Box } from "@mui/material";
 import { useCurrentMode } from "../../../stores/LightOrDarkMode.store";
 import { getDesignTokens } from "../../../theme";
+import { Tasks } from "../../../stores/BoardContent.store";
+import { selectedTaskContentProps } from "../Column";
 
 interface ViewTaskModalProps {
   openTaskModal: boolean;
   onClose: () => void;
+  selectedTaskContent: Tasks;
+  setSelectedTaskContent: React.Dispatch<
+    React.SetStateAction<selectedTaskContentProps>
+  >;
 }
 
 export const ViewTaskModal = ({
   openTaskModal,
   onClose,
+  selectedTaskContent,
+  setSelectedTaskContent,
 }: ViewTaskModalProps) => {
   const lightOrDarkMode = useCurrentMode();
   const theme = getDesignTokens(lightOrDarkMode);
@@ -30,10 +38,7 @@ export const ViewTaskModal = ({
   return (
     <DialogContainer open={openTaskModal} maxWidth="sm" onClose={onClose}>
       <HeadingContainer>
-        <TaskTitle>
-          Research pricing points of various competitors and trial different
-          business models
-        </TaskTitle>
+        <TaskTitle>{selectedTaskContent.title}</TaskTitle>
 
         <Box sx={{ alignSelf: "center" }}>
           <GenericVerticalDropDown
@@ -46,12 +51,15 @@ export const ViewTaskModal = ({
       </HeadingContainer>
 
       <TaskInformationText>
-        We know what we're planning to build for version one. Now we need to
-        finalise the first pricing model we'll use. Keep iterating the subtasks
-        until we have a coherent proposition.
+        {selectedTaskContent.description
+          ? selectedTaskContent.description
+          : "No description provided"}
       </TaskInformationText>
 
-      <Subtasks />
+      <Subtasks
+        subtasks={selectedTaskContent.subtasks}
+        setSelectedTaskContent={setSelectedTaskContent}
+      />
 
       <CurrentStatus />
     </DialogContainer>

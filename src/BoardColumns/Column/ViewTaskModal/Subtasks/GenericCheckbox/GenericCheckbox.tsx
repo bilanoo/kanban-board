@@ -1,4 +1,3 @@
-import { useState } from "react";
 import {
   Container,
   CustomControlLabel,
@@ -8,28 +7,28 @@ import {
 
 interface GenericCheckboxProps {
   textInformation: string;
+  isSelected: boolean;
+  handleSubtaskClick: (isSelected: boolean) => void;
 }
 
-export const GenericCheckbox = ({ textInformation }: GenericCheckboxProps) => {
-  const [isSelected, setIsSelected] = useState<boolean>(false);
-
-  function handleClick(
-    event: SyntheticEvent<Element, Event>,
-    checked: boolean
-  ): void {
-    setIsSelected(!isSelected);
-  }
-
+export const GenericCheckbox = ({
+  textInformation,
+  isSelected,
+  handleSubtaskClick,
+}: GenericCheckboxProps) => {
+  const handleChange = () => {
+    handleSubtaskClick(!isSelected);
+  };
   return (
     <Container>
       <CustomControlLabel
-        control={<CustomCheckbox />}
+        control={<CustomCheckbox checked={isSelected} />}
         label={
           <SubtaskInformation isSelected={isSelected}>
             {textInformation}
           </SubtaskInformation>
         }
-        onChange={handleClick}
+        onChange={handleChange}
       />
     </Container>
   );

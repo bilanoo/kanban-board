@@ -19,6 +19,9 @@ export const HeadingContainer = styled(Box)(({ theme }) => ({
     display: "flex",
     margin: "32px 24px 24px 32px",
     color: theme.palette.text.secondary,
+    alignItems: "center",
+    width: "85%",
+    justifyContent: "space-between",
   },
 }));
 

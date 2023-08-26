@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import kanbanData from "../data.json";
 import { DropResult } from "react-beautiful-dnd";
-interface SubTasks {
+export interface SubTasks {
   isCompleted: boolean;
   title: string;
 }
@@ -127,7 +127,6 @@ const useBoardContentStore = create<BoardContentStore>((set) => ({
         updatedBoards.boards[indexPositionOfUpdatedBoard] =
           state.selectedBoardContent;
 
-        console.log(updatedBoards);
         return { kanbanData: updatedBoards };
       }),
     setKanbanData: (updatedData: KanbanDataProps) =>
