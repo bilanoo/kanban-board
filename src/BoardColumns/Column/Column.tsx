@@ -84,6 +84,14 @@ export const Column = ({ eachBoard }: ColumnProps) => {
     setDisplayDeleteTaskDialog(false);
     setOpenTaskModal(true);
   };
+
+  const handleDeleteButtonClick = () => {
+    actions.deleteTaskFromCurrentColumn(
+      selectedTaskContent.taskIndex,
+      selectedTaskContent.columnName
+    );
+    setDisplayDeleteTaskDialog(false);
+  };
   return (
     <Container className="each-column">
       <ContentContainer>
@@ -134,10 +142,11 @@ export const Column = ({ eachBoard }: ColumnProps) => {
         </Droppable>
       </ContentContainer>
       <DeleteConfirmationModal
+        handleDeleteButtonClick={handleDeleteButtonClick}
         handleCancelButtonClick={handleCancelButtonClick}
         displayDeleteTaskDialog={displayDeleteTaskDialog}
         typeOfDeletion="task"
-        confirmationDescription="Are you sure you want to delete the 'Build settings UI' task and its subtasks? This action cannot be reversed."
+        confirmationDescription={`Are you sure you want to delete the '${selectedTaskContent.title}' task and its subtasks? This action cannot be reversed.`}
         onClose={onCloseConfirmationDelitionModal}
       />
       <ViewTaskModal

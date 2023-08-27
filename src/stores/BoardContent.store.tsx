@@ -35,6 +35,10 @@ interface BoardContentActions {
   updateSelectedBoardContentOnClose: (
     selectedTaskContent: selectedTaskContentProps
   ) => void;
+  deleteTaskFromCurrentColumn: (
+    taskIndexPosition: number,
+    columnName: string
+  ) => void;
 }
 
 interface BoardContentStore {
@@ -188,6 +192,28 @@ const useBoardContentStore = create<BoardContentStore>((set) => ({
         }
 
         return { selectedBoardContent: updatedSelectedBoard };
+      }),
+    deleteTaskFromCurrentColumn: (
+      taskIndexPosition: number,
+      columnName: string
+    ) =>
+      set((state) => {
+        const updatedBoard = { ...state.selectedBoardContent };
+
+        const columnWithTaskToDelete = updatedBoard.columns.filter(
+          (eachBoard) => eachBoard.name === columnName
+        );
+
+        const indexPositionOfModifiedColumn = updatedBoard.columns.findIndex(
+          (EachBoard) => EachBoard.name === columnName
+        );
+
+        columnWithTaskToDelete[0].tasks.splice(taskIndexPosition, 1);
+
+        updatedBoard.columns[indexPositionOfModifiedColumn] =
+          columnWithTaskToDelete[0];
+
+        return { selectedBoardContent: updatedBoard };
       }),
   },
 }));

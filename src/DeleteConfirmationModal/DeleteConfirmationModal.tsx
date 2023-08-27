@@ -13,6 +13,7 @@ interface DeleteConfirmationModalProps {
   confirmationDescription: string;
   displayDeleteTaskDialog: boolean;
   onClose: () => void;
+  handleDeleteButtonClick: () => void;
   handleCancelButtonClick: () => void;
 }
 
@@ -22,6 +23,7 @@ export const DeleteConfirmationModal = ({
   displayDeleteTaskDialog,
   onClose,
   handleCancelButtonClick,
+  handleDeleteButtonClick,
 }: DeleteConfirmationModalProps) => {
   const lightOrDarkMode = useCurrentMode();
   const theme = getDesignTokens(lightOrDarkMode);
@@ -39,6 +41,7 @@ export const DeleteConfirmationModal = ({
           backgroundColorApplied={theme.custom.delete}
           textColor={theme.custom.white}
           onHoverColor={theme.custom.onHoverDelete}
+          onClick={handleDeleteButtonClick}
         >
           Delete
         </GenericButton>
