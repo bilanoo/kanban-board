@@ -6,6 +6,7 @@ import { useState } from "react";
 interface MenuOption {
   optionValue: string;
   textColor: string;
+  handleClick: () => void;
 }
 
 interface GenericVerticalDropdownProps {
@@ -53,7 +54,7 @@ export const GenericVerticalDropDown = ({
         {dropdownOptions.map((eachMenuOption) => (
           <MenuOption
             key={eachMenuOption.optionValue}
-            onClick={handleClose}
+            onClick={eachMenuOption.handleClick}
             textColor={eachMenuOption.textColor}
           >
             {eachMenuOption.optionValue}

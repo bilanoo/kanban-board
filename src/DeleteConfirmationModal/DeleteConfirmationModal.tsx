@@ -8,15 +8,30 @@ import {
   GenericButton,
 } from "./styles";
 
-export const DeleteConfirmationModal = () => {
+interface DeleteConfirmationModalProps {
+  typeOfDeletion: string;
+  confirmationDescription: string;
+  displayDeleteTaskDialog: boolean;
+  onClose: () => void;
+  handleCancelButtonClick: () => void;
+}
+
+export const DeleteConfirmationModal = ({
+  typeOfDeletion,
+  confirmationDescription,
+  displayDeleteTaskDialog,
+  onClose,
+  handleCancelButtonClick,
+}: DeleteConfirmationModalProps) => {
   const lightOrDarkMode = useCurrentMode();
   const theme = getDesignTokens(lightOrDarkMode);
   return (
-    <DialogContainer open={true} fullWidth>
-      <DeleteConfirmationHeading>Delete this board?</DeleteConfirmationHeading>
+    <DialogContainer open={displayDeleteTaskDialog} fullWidth onClose={onClose}>
+      <DeleteConfirmationHeading>
+        Delete this {typeOfDeletion}?
+      </DeleteConfirmationHeading>
       <DeleteConfirmationDescription>
-        Are you sure you want to delete the 'Build settings UI' task and its
-        subtasks? This action cannot be reversed.
+        {confirmationDescription}
       </DeleteConfirmationDescription>
 
       <ButtonsContainer>
@@ -31,6 +46,7 @@ export const DeleteConfirmationModal = () => {
           backgroundColorApplied={theme.custom.cancelButtonBackgroundColor}
           textColor={theme.palette.primary.contrastText}
           onHoverColor={theme.custom.onHoverCancelButton}
+          onClick={handleCancelButtonClick}
         >
           Cancel
         </GenericButton>

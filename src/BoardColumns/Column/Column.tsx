@@ -27,6 +27,8 @@ export interface selectedTaskContentProps extends Tasks {
 export const Column = ({ eachBoard }: ColumnProps) => {
   const actions = useBoardContentStore((state) => state.actions);
   const [openTaskModal, setOpenTaskModal] = useState<boolean>(false);
+  const [displayDeleteTaskDialog, setDisplayDeleteTaskDialog] =
+    useState<boolean>(false);
   const [selectedTaskContent, setSelectedTaskContent] =
     useState<selectedTaskContentProps>({
       columnName: eachBoard.name,
@@ -68,6 +70,20 @@ export const Column = ({ eachBoard }: ColumnProps) => {
     setOpenTaskModal(false);
   };
 
+  const onCloseConfirmationDelitionModal = () => {
+    setOpenTaskModal(false);
+    setDisplayDeleteTaskDialog(false);
+  };
+
+  const handleOpenConfirmationDelitionModal = () => {
+    setOpenTaskModal(false);
+    setDisplayDeleteTaskDialog(true);
+  };
+
+  const handleCancelButtonClick = () => {
+    setDisplayDeleteTaskDialog(false);
+    setOpenTaskModal(true);
+  };
   return (
     <Container className="each-column">
       <ContentContainer>
@@ -117,12 +133,21 @@ export const Column = ({ eachBoard }: ColumnProps) => {
           )}
         </Droppable>
       </ContentContainer>
-      <DeleteConfirmationModal />
+      <DeleteConfirmationModal
+        handleCancelButtonClick={handleCancelButtonClick}
+        displayDeleteTaskDialog={displayDeleteTaskDialog}
+        typeOfDeletion="task"
+        confirmationDescription="Are you sure you want to delete the 'Build settings UI' task and its subtasks? This action cannot be reversed."
+        onClose={onCloseConfirmationDelitionModal}
+      />
       <ViewTaskModal
         selectedTaskContent={memoizedSelectedTaskContent}
         openTaskModal={openTaskModal}
         onClose={handleCloseTaskModal}
         setSelectedTaskContent={setSelectedTaskContent}
+        handleOpenConfirmationDelitionModal={
+          handleOpenConfirmationDelitionModal
+        }
       />
     </Container>
   );

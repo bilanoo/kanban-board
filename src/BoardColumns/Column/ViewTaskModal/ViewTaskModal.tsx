@@ -16,6 +16,7 @@ import { selectedTaskContentProps } from "../Column";
 interface ViewTaskModalProps {
   openTaskModal: boolean;
   onClose: () => void;
+  handleOpenConfirmationDelitionModal: () => void;
   selectedTaskContent: Tasks;
   setSelectedTaskContent: React.Dispatch<
     React.SetStateAction<selectedTaskContentProps>
@@ -27,12 +28,21 @@ export const ViewTaskModal = ({
   onClose,
   selectedTaskContent,
   setSelectedTaskContent,
+  handleOpenConfirmationDelitionModal,
 }: ViewTaskModalProps) => {
   const lightOrDarkMode = useCurrentMode();
   const theme = getDesignTokens(lightOrDarkMode);
   const dropdownOptions = [
-    { optionValue: "Edit Task", textColor: theme.custom.mediumGrey },
-    { optionValue: "Delete Task", textColor: theme.custom.delete },
+    {
+      optionValue: "Edit Task",
+      textColor: theme.custom.mediumGrey,
+      handleClick: () => console.log("clicked!"),
+    },
+    {
+      optionValue: "Delete Task",
+      textColor: theme.custom.delete,
+      handleClick: handleOpenConfirmationDelitionModal,
+    },
   ];
 
   return (
