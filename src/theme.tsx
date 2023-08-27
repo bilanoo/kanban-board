@@ -13,6 +13,9 @@ declare module "@mui/material/styles" {
       columnContentColor: string;
       boxShadowColor: string;
       emptyColumn: string;
+      onHoverDelete: string;
+      cancelButtonBackgroundColor: string;
+      onHoverCancelButton: string;
     };
   }
   // allow configuration using `createTheme`
@@ -28,6 +31,9 @@ declare module "@mui/material/styles" {
       columnContentColor?: string;
       boxShadowColor?: string;
       emptyColumn?: string;
+      onHoverDelete?: string;
+      cancelButtonBackgroundColor?: string;
+      onHoverCancelButton?: string;
     };
   }
 }
@@ -62,5 +68,9 @@ export const getDesignTokens = (mode: PaletteMode) => ({
       mode === "light"
         ? "linear-gradient(180deg,#e9effa,rgba(233,239,250,.5))"
         : "linear-gradient(180deg, rgba(43, 44, 55, 0.25) 0%, rgba(43, 44, 55, 0.13) 100%)",
+    onHoverDelete: "#FF9898",
+    cancelButtonBackgroundColor:
+      mode === "light" ? "rgba(99, 95, 199, 0.10)" : "#FFF",
+    onHoverCancelButton: "rgba(99, 95, 199, 0.25)",
   },
 });

@@ -15,6 +15,7 @@ import {
 } from "./style";
 import { ViewTaskModal } from "./ViewTaskModal/ViewTaskModal";
 import { useMemo, useState } from "react";
+import { DeleteConfirmationModal } from "../../DeleteConfirmationModal/DeleteConfirmationModal";
 
 interface ColumnProps {
   eachBoard: Columns;
@@ -116,6 +117,7 @@ export const Column = ({ eachBoard }: ColumnProps) => {
           )}
         </Droppable>
       </ContentContainer>
+      <DeleteConfirmationModal />
       <ViewTaskModal
         selectedTaskContent={memoizedSelectedTaskContent}
         openTaskModal={openTaskModal}
