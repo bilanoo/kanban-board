@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import kanbanData from "../data.json";
 import { DropResult } from "react-beautiful-dnd";
+import { selectedTaskContentProps } from "../BoardColumns/Column/Column";
 export interface SubTasks {
   isCompleted: boolean;
   title: string;
@@ -31,6 +32,9 @@ interface BoardContentActions {
   updateSelectedBoardContentOnDragEnd: (result: DropResult) => void;
   setKanbanData: (updatedData: KanbanDataProps) => void;
   updateKanbanDataAfterMovingTask: () => void;
+  updateSelectedBoardContentOnClose: (
+    selectedTaskContent: selectedTaskContentProps
+  ) => void;
 }
 
 interface BoardContentStore {
@@ -133,6 +137,50 @@ const useBoardContentStore = create<BoardContentStore>((set) => ({
       set(() => ({
         kanbanData: updatedData,
       })),
+    updateSelectedBoardContentOnClose: (
+      selectedTaskContent: selectedTaskContentProps
+    ) =>
+      set((state) => {
+        const updatedTask: Tasks = {
+          description: selectedTaskContent.description,
+          status: selectedTaskContent.status,
+          subtasks: selectedTaskContent.subtasks,
+          title: selectedTaskContent.title,
+        };
+
+        const removeTask = () => {
+          const modifiedColumn = state.selectedBoardContent.columns.filter(
+            (eachColumn) => eachColumn.name === selectedTaskContent.columnName
+          );
+
+          modifiedColumn[0].tasks.splice(selectedTaskContent.taskIndex, 1);
+          return modifiedColumn[0];
+        };
+
+        const addTaskToColumn = () => {
+          const modifiedColumn = state.selectedBoardContent.columns.filter(
+            (eachColumn) => eachColumn.name === selectedTaskContent.status
+          );
+          modifiedColumn[0].tasks.push(updatedTask);
+          return modifiedColumn[0];
+        };
+
+        const updatedSelectedBoard = { ...state.selectedBoardContent };
+        const indexColumnWithTaskToRemove =
+          updatedSelectedBoard.columns.findIndex(
+            (eachColumn) => eachColumn.name === selectedTaskContent.columnName
+          );
+        const indexColumnWithTaskToAdd = updatedSelectedBoard.columns.findIndex(
+          (eachColumn) => eachColumn.name === selectedTaskContent.status
+        );
+        updatedSelectedBoard.columns[indexColumnWithTaskToRemove] =
+          removeTask();
+
+        updatedSelectedBoard.columns[indexColumnWithTaskToAdd] =
+          addTaskToColumn();
+
+        return { selectedBoardContent: updatedSelectedBoard };
+      }),
   },
 }));
 

@@ -1,5 +1,8 @@
 import { Draggable, Droppable } from "react-beautiful-dnd";
-import { Columns, Tasks } from "../../stores/BoardContent.store";
+import useBoardContentStore, {
+  Columns,
+  Tasks,
+} from "../../stores/BoardContent.store";
 import {
   TaskColoredBall,
   Container,
@@ -18,9 +21,10 @@ interface ColumnProps {
 }
 export interface selectedTaskContentProps extends Tasks {
   columnName: string;
-  taskIndex: number | null;
+  taskIndex: number;
 }
 export const Column = ({ eachBoard }: ColumnProps) => {
+  const actions = useBoardContentStore((state) => state.actions);
   const [openTaskModal, setOpenTaskModal] = useState<boolean>(false);
   const [selectedTaskContent, setSelectedTaskContent] =
     useState<selectedTaskContentProps>({
@@ -29,7 +33,7 @@ export const Column = ({ eachBoard }: ColumnProps) => {
       status: "",
       subtasks: [],
       title: "",
-      taskIndex: null,
+      taskIndex: 0,
     });
 
   const memoizedSelectedTaskContent = useMemo(
@@ -59,6 +63,7 @@ export const Column = ({ eachBoard }: ColumnProps) => {
   };
 
   const handleCloseTaskModal = () => {
+    actions.updateSelectedBoardContentOnClose(selectedTaskContent);
     setOpenTaskModal(false);
   };
 
