@@ -70,10 +70,14 @@ const useBoardContentStore = create<BoardContentStore>((set) => ({
         };
 
         const addToList = (list: Tasks[], index: number, element: Tasks) => {
-          const result = Array.from(list);
-          result.splice(index, 0, element);
-          return result;
+          const modifiedTasks = Array.from(list);
+          modifiedTasks.splice(index, 0, element);
+
+          modifiedTasks[index].status = result.destination!.droppableId;
+
+          return modifiedTasks;
         };
+
         const copyofList: Columns[] = [...state.selectedBoardContent.columns];
         const sourceList: Columns[] = copyofList.filter(
           (eachColumn) => eachColumn.name === result.source.droppableId
@@ -173,11 +177,15 @@ const useBoardContentStore = create<BoardContentStore>((set) => ({
         const indexColumnWithTaskToAdd = updatedSelectedBoard.columns.findIndex(
           (eachColumn) => eachColumn.name === selectedTaskContent.status
         );
-        updatedSelectedBoard.columns[indexColumnWithTaskToRemove] =
-          removeTask();
 
-        updatedSelectedBoard.columns[indexColumnWithTaskToAdd] =
-          addTaskToColumn();
+        // only move the task to another column if the user changed its status
+        if (selectedTaskContent.columnName !== selectedTaskContent.status) {
+          updatedSelectedBoard.columns[indexColumnWithTaskToRemove] =
+            removeTask();
+
+          updatedSelectedBoard.columns[indexColumnWithTaskToAdd] =
+            addTaskToColumn();
+        }
 
         return { selectedBoardContent: updatedSelectedBoard };
       }),
