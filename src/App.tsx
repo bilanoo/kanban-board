@@ -10,6 +10,7 @@ import useBoardContentStore, {
   useKanbanData,
   useSelectedBoard,
 } from "./stores/BoardContent.store";
+import { NoBoardsAvailable } from "./NoBoardsAvailable/NoBoardsAvailable";
 
 function App() {
   const lightOrDarkMode = useCurrentMode();
@@ -34,20 +35,25 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <Box className="board-container">
-        <Header />
-
-        <div
-          className="content-container"
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            width: "100%",
-            height: "100%",
-          }}
-        >
-          <Sidebar />
-          <BoardColumns />
-        </div>
+        {selectedBoard === "No boards available" ? (
+          <NoBoardsAvailable />
+        ) : (
+          <>
+            <Header />
+            <div
+              className="content-container"
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                width: "100%",
+                height: "100%",
+              }}
+            >
+              <Sidebar />
+              <BoardColumns />
+            </div>
+          </>
+        )}
       </Box>
     </ThemeProvider>
   );
