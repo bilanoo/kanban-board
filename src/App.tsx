@@ -3,7 +3,7 @@ import "./App.css";
 import { BoardColumns } from "./BoardColumns/BoardColumns";
 import { Header } from "./Header/Header";
 import { Sidebar } from "./Sidebar/Sidebar";
-import { useLayoutEffect, useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import { getDesignTokens } from "./theme";
 import { useCurrentMode } from "./stores/LightOrDarkMode.store";
 import useBoardContentStore, {
@@ -23,13 +23,13 @@ function App() {
     [lightOrDarkMode]
   );
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const selectedBoardContent = kanbanData.boards.filter(
       (EachBoard) => EachBoard.name === selectedBoard
     );
 
     actions.setSelectedBoardContent(selectedBoardContent[0]);
-  }, []);
+  }, [selectedBoard]);
   return (
     <ThemeProvider theme={theme}>
       <Box className="board-container">

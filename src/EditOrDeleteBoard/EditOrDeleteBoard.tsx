@@ -1,7 +1,6 @@
 import { MenuOption, EditOrDeleteButton, PopUpMenu } from "./style";
 
 import VerticalEllipsis from "../assets/icon-vertical-ellipsis.svg";
-import { useState } from "react";
 
 interface MenuOption {
   optionValue: string;
@@ -14,6 +13,9 @@ interface GenericVerticalDropdownProps {
   dropdownOptions: MenuOption[];
   marginLeft: string;
   marginRight: string;
+  modalStatus: null | HTMLElement;
+  setModalStatus: React.Dispatch<React.SetStateAction<null | HTMLElement>>;
+  handleClose: () => void;
 }
 
 export const GenericVerticalDropDown = ({
@@ -21,15 +23,14 @@ export const GenericVerticalDropDown = ({
   dropdownOptions,
   marginLeft,
   marginRight,
+  modalStatus,
+  setModalStatus,
+  handleClose,
 }: GenericVerticalDropdownProps) => {
-  const [modalStatus, setModalStatus] = useState<null | HTMLElement>(null);
   const open = Boolean(modalStatus);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setModalStatus(event.currentTarget);
-  };
-  const handleClose = () => {
-    setModalStatus(null);
   };
 
   return (

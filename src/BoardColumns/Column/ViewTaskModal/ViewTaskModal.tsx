@@ -12,6 +12,7 @@ import { useCurrentMode } from "../../../stores/LightOrDarkMode.store";
 import { getDesignTokens } from "../../../theme";
 import { Tasks } from "../../../stores/BoardContent.store";
 import { selectedTaskContentProps } from "../Column";
+import { useState } from "react";
 
 interface ViewTaskModalProps {
   openTaskModal: boolean;
@@ -30,8 +31,15 @@ export const ViewTaskModal = ({
   setSelectedTaskContent,
   handleOpenConfirmationDelitionModal,
 }: ViewTaskModalProps) => {
+  const [modalStatus, setModalStatus] = useState<null | HTMLElement>(null);
   const lightOrDarkMode = useCurrentMode();
   const theme = getDesignTokens(lightOrDarkMode);
+
+  const handleOpenTaskDelitionModal = () => {
+    setModalStatus(null);
+    handleOpenConfirmationDelitionModal();
+  };
+
   const dropdownOptions = [
     {
       optionValue: "Edit Task",
@@ -41,10 +49,13 @@ export const ViewTaskModal = ({
     {
       optionValue: "Delete Task",
       textColor: theme.custom.delete,
-      handleClick: handleOpenConfirmationDelitionModal,
+      handleClick: handleOpenTaskDelitionModal,
     },
   ];
 
+  const handleVerticalEllipsisOnClose = () => {
+    setModalStatus(null);
+  };
   return (
     <DialogContainer open={openTaskModal} maxWidth="sm" onClose={onClose}>
       <HeadingContainer>
@@ -52,6 +63,9 @@ export const ViewTaskModal = ({
 
         <Box sx={{ alignSelf: "center" }}>
           <GenericVerticalDropDown
+            modalStatus={modalStatus}
+            setModalStatus={setModalStatus}
+            handleClose={handleVerticalEllipsisOnClose}
             altInformation="edit or delete board"
             marginLeft="1px"
             marginRight="0"

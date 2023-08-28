@@ -9,15 +9,14 @@ import {
   EachBoard,
   IconContent,
 } from "./BoardStyles";
-import { useState } from "react";
 import useBoardContentStore, {
   useKanbanData,
+  useSelectedBoard,
 } from "../../stores/BoardContent.store";
 export const Boards = () => {
-  const [selected, setSelectedIndex] = useState(0);
-
   const actions = useBoardContentStore((state) => state.actions);
   const kanbanData = useKanbanData();
+  const selectedBoard = useSelectedBoard();
 
   const setSelectedBoardValues = (
     event: React.MouseEvent<HTMLDivElement, MouseEvent>
@@ -30,10 +29,8 @@ export const Boards = () => {
   };
 
   const handleListItemClick = (
-    event: React.MouseEvent<HTMLDivElement, MouseEvent>,
-    index: number
+    event: React.MouseEvent<HTMLDivElement, MouseEvent>
   ) => {
-    setSelectedIndex(index);
     setSelectedBoardValues(event);
   };
 
@@ -45,11 +42,11 @@ export const Boards = () => {
         </AllBoardsText>
 
         <BoardList>
-          {kanbanData.boards.map((board, index) => (
+          {kanbanData.boards.map((board) => (
             <EachBoard key={board.name}>
               <BoardContent
-                selected={selected === index}
-                onClick={(event) => handleListItemClick(event, index)}
+                selected={board.name === selectedBoard}
+                onClick={(event) => handleListItemClick(event)}
                 id={board.name}
               >
                 <IconContent>

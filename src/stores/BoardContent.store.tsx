@@ -39,6 +39,10 @@ interface BoardContentActions {
     taskIndexPosition: number,
     columnName: string
   ) => void;
+  removeColumnFromKanbanData: () => void;
+  changeSelectedBoardAfterRemovingColumn: (
+    kanbanDataBeforeColumnBeingRemoved: KanbanDataProps
+  ) => void;
 }
 
 interface BoardContentStore {
@@ -214,6 +218,53 @@ const useBoardContentStore = create<BoardContentStore>((set) => ({
           columnWithTaskToDelete[0];
 
         return { selectedBoardContent: updatedBoard };
+      }),
+    removeColumnFromKanbanData: () =>
+      set((state) => {
+        const updatedKanbanData = { ...state.kanbanData };
+
+        const indexPositionOfColumnToRemove =
+          updatedKanbanData.boards.findIndex(
+            (eachColumn) => eachColumn.name === state.selectedBoard
+          );
+        state.actions.changeSelectedBoardAfterRemovingColumn(updatedKanbanData);
+        updatedKanbanData.boards.splice(indexPositionOfColumnToRemove, 1);
+
+        return {
+          kanbanData: updatedKanbanData,
+        };
+      }),
+    changeSelectedBoardAfterRemovingColumn: (
+      kanbanDataBeforeColumnBeingRemoved: KanbanDataProps
+    ) =>
+      set((state) => {
+        const columnIndex = kanbanDataBeforeColumnBeingRemoved.boards.findIndex(
+          (EachBoard) => EachBoard.name === state.selectedBoard
+        );
+
+        let newSelectedBoardName = "";
+
+        if (columnIndex !== -1) {
+          if (
+            columnIndex <
+            kanbanDataBeforeColumnBeingRemoved.boards.length - 1
+          ) {
+            // If there's a column following, select its name
+            newSelectedBoardName =
+              kanbanDataBeforeColumnBeingRemoved.boards[columnIndex + 1].name;
+          } else if (columnIndex > 0) {
+            // If the removed column was the last one, select the previous column's name
+            newSelectedBoardName =
+              kanbanDataBeforeColumnBeingRemoved.boards[columnIndex - 1].name;
+          } else {
+            // If the removed column was the only one, select the first column's name
+            newSelectedBoardName = "No boards available";
+          }
+        }
+
+        return {
+          selectedBoard: newSelectedBoardName,
+        };
       }),
   },
 }));

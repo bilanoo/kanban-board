@@ -12,7 +12,7 @@ interface DeleteConfirmationModalProps {
   typeOfDeletion: string;
   confirmationDescription: string;
   displayDeleteTaskDialog: boolean;
-  onClose: () => void;
+  onClose?: () => void;
   handleDeleteButtonClick: () => void;
   handleCancelButtonClick: () => void;
 }
