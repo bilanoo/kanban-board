@@ -27,6 +27,9 @@ interface AddOrEditTaskModalProps extends CurrentStatusProps {
   setSelectedTaskContent: React.Dispatch<
     React.SetStateAction<selectedTaskContentProps>
   >;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  handleSaveChanges: (taskContent?: Tasks | any) => void;
+  submitButtonLabel: string;
 }
 
 export const AddOrEditTaskModal = ({
@@ -34,13 +37,13 @@ export const AddOrEditTaskModal = ({
   openEditTaskModal,
   onCloseEditTaskModal,
   contentTitle,
-  setSelectedTaskContent,
+  handleSaveChanges,
+  submitButtonLabel,
 }: AddOrEditTaskModalProps) => {
   const [taskContent, setTaskContent] = useState<Tasks>(
     taskContentInitialValue
   );
 
-  console.log(taskContent);
   function handleTitleChange(
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ): void {
@@ -83,17 +86,6 @@ export const AddOrEditTaskModal = ({
         subtasks: updatedSubtasks, // Update the subtasks array with the modified copy
       };
     });
-  }
-
-  function handleSaveChanges(): void {
-    setSelectedTaskContent((prevState) => ({
-      ...prevState,
-      description: taskContent.description,
-      status: taskContent.status,
-      subtasks: taskContent.subtasks,
-      title: taskContent.title,
-    }));
-    onCloseEditTaskModal();
   }
 
   return (
@@ -161,8 +153,8 @@ export const AddOrEditTaskModal = ({
         currentStatusValue={taskContent.status}
       />
 
-      <ConfirmChangesButton onClick={handleSaveChanges}>
-        Save Changes
+      <ConfirmChangesButton onClick={() => handleSaveChanges(taskContent)}>
+        {submitButtonLabel}
       </ConfirmChangesButton>
     </DialogContainer>
   );

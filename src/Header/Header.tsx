@@ -10,6 +10,8 @@ import useBoardContentStore, {
 import { getDesignTokens } from "../theme";
 import { DeleteConfirmationModal } from "../DeleteConfirmationModal/DeleteConfirmationModal";
 import { useState } from "react";
+import { AddOrEditTaskModal } from "../AddOrEditTaskModal/AddOrEditTaskModal";
+import { selectedTaskContentProps } from "../BoardColumns/Column/Column";
 
 export const Header = () => {
   const lightOrDarkMode = useCurrentMode();
@@ -17,6 +19,27 @@ export const Header = () => {
 
   const theme = getDesignTokens(lightOrDarkMode);
 
+  const [selectedTaskContent, setSelectedTaskContent] =
+    useState<selectedTaskContentProps>({
+      columnName: "",
+      description: "",
+      status: "",
+      subtasks: [],
+      title: "",
+      taskIndex: 0,
+    });
+
+  const taskContentInitialValue = {
+    title: "",
+    description: "",
+    status: "",
+    subtasks: [
+      { title: "", isCompleted: false },
+      { title: "", isCompleted: false },
+    ],
+  };
+
+  const [openEditTaskModal, setOpenEditTaskModal] = useState<boolean>(false);
   const [modalStatus, setModalStatus] = useState<null | HTMLElement>(null);
   const [displayDeleteTaskDialog, setDisplayDeleteTaskDialog] =
     useState<boolean>(false);
@@ -42,11 +65,20 @@ export const Header = () => {
     setModalStatus(null);
   };
 
+  const onCloseAddTaskModal = () => {
+    setOpenEditTaskModal(false);
+  };
+
+  const handleOpenAddTaskModal = () => {
+    setOpenEditTaskModal(true);
+    setModalStatus(null);
+  };
+
   const dropdownOptions = [
     {
       optionValue: "Edit Board",
       textColor: theme.palette.text.primary,
-      handleClick: () => console.log("clicked!"),
+      handleClick: handleOpenAddTaskModal,
     },
     {
       optionValue: "Delete Board",
@@ -54,6 +86,19 @@ export const Header = () => {
       handleClick: handleOpenConfirmationDelitionModal,
     },
   ];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  function handleSaveChanges(taskContent?: any): void {
+    setSelectedTaskContent((prevState) => ({
+      ...prevState,
+      description: taskContent.description,
+      status: taskContent.status,
+      subtasks: taskContent.subtasks,
+      title: taskContent.title,
+    }));
+    onCloseAddTaskModal();
+  }
+
+  console.log("selectedTaskContent", selectedTaskContent);
   return (
     <Container>
       <LogoContainer className="logo-container">
@@ -67,7 +112,7 @@ export const Header = () => {
         </div>
       </LogoContainer>
       <BoardSelected variant="h6">{selectedBoard}</BoardSelected>
-      <AddNewTask disabled> + Add New Task</AddNewTask>
+      <AddNewTask onClick={handleOpenAddTaskModal}> + Add New Task</AddNewTask>
       <GenericVerticalDropDown
         modalStatus={modalStatus}
         setModalStatus={setModalStatus}
@@ -83,6 +128,17 @@ export const Header = () => {
         displayDeleteTaskDialog={displayDeleteTaskDialog}
         handleCancelButtonClick={handleCancelButtonClick}
         handleDeleteButtonClick={handleDeleteButtonClick}
+      />
+
+      <AddOrEditTaskModal
+        openEditTaskModal={openEditTaskModal}
+        contentTitle="Add New Task"
+        onCloseEditTaskModal={onCloseAddTaskModal}
+        taskContentInitialValue={taskContentInitialValue}
+        setSelectedTaskContent={setSelectedTaskContent}
+        currentStatusValue={selectedTaskContent.status}
+        handleSaveChanges={handleSaveChanges}
+        submitButtonLabel="Create Task"
       />
     </Container>
   );
