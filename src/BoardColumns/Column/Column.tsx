@@ -16,7 +16,6 @@ import {
 import { ViewTaskModal } from "./ViewTaskModal/ViewTaskModal";
 import { useMemo, useState } from "react";
 import { DeleteConfirmationModal } from "../../DeleteConfirmationModal/DeleteConfirmationModal";
-import { AddOrEditTaskModal } from "../../AddOrEditTaskModal/AddOrEditTaskModal";
 
 interface ColumnProps {
   eachBoard: Columns;
@@ -150,7 +149,7 @@ export const Column = ({ eachBoard }: ColumnProps) => {
         confirmationDescription={`Are you sure you want to delete the '${selectedTaskContent.title}' task and its subtasks? This action cannot be reversed.`}
         onClose={onCloseConfirmationDelitionModal}
       />
-      <AddOrEditTaskModal />
+
       <ViewTaskModal
         selectedTaskContent={memoizedSelectedTaskContent}
         openTaskModal={openTaskModal}

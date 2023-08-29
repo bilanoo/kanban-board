@@ -4,16 +4,22 @@ import { useSelectedBoardContent } from "../../../../stores/BoardContent.store";
 import { selectedTaskContentProps } from "../../Column";
 import { SelectChangeEvent } from "@mui/material/Select";
 
-interface CurrentStatusProps {
+export interface CurrentStatusProps {
   currentStatusValue: string;
   setSelectedTaskContent: React.Dispatch<
     React.SetStateAction<selectedTaskContentProps>
   >;
+  statusLabel?: string;
+  selectFieldWidth?: string;
+  selectFieldHeight?: string;
 }
 
 export const CurrentStatus = ({
   currentStatusValue,
   setSelectedTaskContent,
+  statusLabel,
+  selectFieldWidth,
+  selectFieldHeight,
 }: CurrentStatusProps) => {
   const selectedBoardContent = useSelectedBoardContent();
   function handleChange(
@@ -30,8 +36,10 @@ export const CurrentStatus = ({
 
   return (
     <Container>
-      <StatusLabel>Current Status</StatusLabel>
+      <StatusLabel>{statusLabel}</StatusLabel>
       <Dropdown
+        selectFieldWidth={selectFieldWidth}
+        selectFieldHeight={selectFieldHeight}
         value={currentStatusValue}
         onChange={handleChange}
         IconComponent={(props) => (

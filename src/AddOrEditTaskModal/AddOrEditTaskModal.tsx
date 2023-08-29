@@ -1,24 +1,38 @@
 import {
+  CurrentStatus,
+  CurrentStatusProps,
+} from "../BoardColumns/Column/ViewTaskModal/CurrentStatus/CurrentStatus";
+import { DeletableField } from "./DeletableField/DeletableField";
+import {
   DialogContainer,
   Header,
   ContentContainer,
   ContentTitle,
-  InputTaskTitle,
+  InputField,
   InputDescription,
+  SubtasksContainer,
+  AddNewSubtaskButton,
+  ConfirmChangesButton,
 } from "./styles";
 
-export const AddOrEditTaskModal = () => {
+interface AddOrEditTaskModalProps extends CurrentStatusProps {}
+
+export const AddOrEditTaskModal = ({
+  currentStatusValue,
+  setSelectedTaskContent,
+}: AddOrEditTaskModalProps) => {
   return (
     <DialogContainer open={true} maxWidth="sm" fullWidth>
       <Header>Add New Task</Header>
 
       <ContentContainer>
         <ContentTitle>Title</ContentTitle>
-        <InputTaskTitle
+        <InputField
           size="small"
           variant="outlined"
           placeholder="e.g. Take coffee break"
-        ></InputTaskTitle>
+          customWidth="416px"
+        ></InputField>
       </ContentContainer>
 
       <ContentContainer>
@@ -36,6 +50,25 @@ export const AddOrEditTaskModal = () => {
           }}
         ></InputDescription>
       </ContentContainer>
+
+      <ContentContainer>
+        <ContentTitle>Subtasks</ContentTitle>
+        <SubtasksContainer>
+          <DeletableField placeholderText="e.g. Make coffee" />
+          <DeletableField placeholderText="e.g. Drink coffee & smile" />
+        </SubtasksContainer>
+        <AddNewSubtaskButton>+Add New Subtask</AddNewSubtaskButton>
+      </ContentContainer>
+
+      <CurrentStatus
+        statusLabel="Status"
+        selectFieldWidth="416px"
+        selectFieldHeight="40px"
+        currentStatusValue={currentStatusValue}
+        setSelectedTaskContent={setSelectedTaskContent}
+      />
+
+      <ConfirmChangesButton>Save Changes</ConfirmChangesButton>
     </DialogContainer>
   );
 };

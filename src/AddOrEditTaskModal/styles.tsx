@@ -1,4 +1,11 @@
-import { Box, Dialog, TextField, Typography, styled } from "@mui/material";
+import {
+  Box,
+  Button,
+  Dialog,
+  TextField,
+  Typography,
+  styled,
+} from "@mui/material";
 
 export const DialogContainer = styled(Dialog)(({ theme }) => ({
   "&": {
@@ -42,9 +49,15 @@ export const ContentTitle = styled(Typography)(({ theme }) => ({
   },
 }));
 
-export const InputTaskTitle = styled(TextField)(({ theme }) => ({
+interface InputFieldProps {
+  customWidth: string;
+}
+
+export const InputField = styled(TextField, {
+  shouldForwardProp: (prop) => prop !== "customWidth",
+})<InputFieldProps>(({ theme, customWidth }) => ({
   "&": {
-    width: "416px",
+    width: customWidth,
     borderRadius: "4px",
   },
 
@@ -70,7 +83,7 @@ export const InputDescription = styled(TextField)(({ theme }) => ({
     borderRadius: "4px",
   },
   "& .MuiFilledInput-root": {},
-  input: {
+  textarea: {
     "&::placeholder": {
       fontSize: "0.813rem",
     },
@@ -83,5 +96,48 @@ export const InputDescription = styled(TextField)(({ theme }) => ({
     "&.Mui-focused fieldset": {
       border: "1px solid rgba(130, 143, 163, 0.25)",
     },
+  },
+}));
+
+export const SubtasksContainer = styled(Box)(() => ({
+  "&": {
+    display: "flex",
+    flexDirection: "column",
+    gap: "12px",
+  },
+}));
+
+export const AddNewSubtaskButton = styled(Button)(({ theme }) => ({
+  "&": {
+    backgroundColor: theme.custom.cancelButtonBackgroundColor,
+    borderRadius: "24px",
+    width: "100%",
+    height: "40px",
+    color: theme.palette.primary.contrastText,
+    fontSize: "0.813rem",
+    fontWeight: 700,
+    textTransform: "none",
+    marginTop: "8px",
+  },
+  "&:hover": {
+    backgroundColor: theme.custom.onHoverCancelButton,
+  },
+}));
+
+export const ConfirmChangesButton = styled(Button)(({ theme }) => ({
+  "&": {
+    backgroundColor: theme.palette.primary.contrastText,
+    borderRadius: "24px",
+    width: "416px",
+    height: "40px",
+    color: theme.custom.white,
+    fontSize: "0.813rem",
+    fontWeight: 700,
+    textTransform: "none",
+    alignSelf: "center",
+    marginBottom: "32px",
+  },
+  "&:hover": {
+    backgroundColor: theme.custom.lightPurple,
   },
 }));

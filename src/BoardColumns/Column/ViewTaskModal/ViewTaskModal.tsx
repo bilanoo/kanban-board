@@ -13,6 +13,7 @@ import { getDesignTokens } from "../../../theme";
 import { Tasks } from "../../../stores/BoardContent.store";
 import { selectedTaskContentProps } from "../Column";
 import { useState } from "react";
+import { AddOrEditTaskModal } from "../../../AddOrEditTaskModal/AddOrEditTaskModal";
 
 interface ViewTaskModalProps {
   openTaskModal: boolean;
@@ -57,38 +58,48 @@ export const ViewTaskModal = ({
     setModalStatus(null);
   };
   return (
-    <DialogContainer open={openTaskModal} maxWidth="sm" onClose={onClose}>
-      <HeadingContainer>
-        <TaskTitle>{selectedTaskContent.title}</TaskTitle>
+    <>
+      <DialogContainer open={openTaskModal} maxWidth="sm" onClose={onClose}>
+        <HeadingContainer>
+          <TaskTitle>{selectedTaskContent.title}</TaskTitle>
 
-        <Box sx={{ alignSelf: "center" }}>
-          <GenericVerticalDropDown
-            modalStatus={modalStatus}
-            setModalStatus={setModalStatus}
-            handleClose={handleVerticalEllipsisOnClose}
-            altInformation="edit or delete board"
-            marginLeft="1px"
-            marginRight="0"
-            dropdownOptions={dropdownOptions}
-          />
-        </Box>
-      </HeadingContainer>
+          <Box sx={{ alignSelf: "center" }}>
+            <GenericVerticalDropDown
+              modalStatus={modalStatus}
+              setModalStatus={setModalStatus}
+              handleClose={handleVerticalEllipsisOnClose}
+              altInformation="edit or delete board"
+              marginLeft="1px"
+              marginRight="0"
+              dropdownOptions={dropdownOptions}
+            />
+          </Box>
+        </HeadingContainer>
 
-      <TaskInformationText>
-        {selectedTaskContent.description
-          ? selectedTaskContent.description
-          : "No description provided"}
-      </TaskInformationText>
+        <TaskInformationText>
+          {selectedTaskContent.description
+            ? selectedTaskContent.description
+            : "No description provided"}
+        </TaskInformationText>
 
-      <Subtasks
-        subtasks={selectedTaskContent.subtasks}
-        setSelectedTaskContent={setSelectedTaskContent}
-      />
+        <Subtasks
+          subtasks={selectedTaskContent.subtasks}
+          setSelectedTaskContent={setSelectedTaskContent}
+        />
 
-      <CurrentStatus
+        <CurrentStatus
+          statusLabel="Current Status"
+          selectFieldWidth="auto"
+          selectFieldHeight="auto"
+          currentStatusValue={selectedTaskContent.status}
+          setSelectedTaskContent={setSelectedTaskContent}
+        />
+      </DialogContainer>
+
+      <AddOrEditTaskModal
         currentStatusValue={selectedTaskContent.status}
         setSelectedTaskContent={setSelectedTaskContent}
       />
-    </DialogContainer>
+    </>
   );
 };
