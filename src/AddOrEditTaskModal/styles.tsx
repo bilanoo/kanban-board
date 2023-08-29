@@ -36,7 +36,7 @@ export const ContentContainer = styled(Box)(() => ({
     display: "flex",
     flexDirection: "column",
     gap: "8px",
-    margin: "0px 32px 24px 32px",
+    margin: "0px 0px 24px 32px",
   },
 }));
 
@@ -62,6 +62,7 @@ export const InputField = styled(TextField, {
   },
 
   input: {
+    fontSize: "0.813rem",
     "&::placeholder": {
       fontSize: "0.813rem",
     },
@@ -84,6 +85,7 @@ export const InputDescription = styled(TextField)(({ theme }) => ({
   },
   "& .MuiFilledInput-root": {},
   textarea: {
+    fontSize: "0.813rem",
     "&::placeholder": {
       fontSize: "0.813rem",
     },

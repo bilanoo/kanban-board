@@ -33,6 +33,7 @@ export const ViewTaskModal = ({
   handleOpenConfirmationDelitionModal,
 }: ViewTaskModalProps) => {
   const [modalStatus, setModalStatus] = useState<null | HTMLElement>(null);
+  const [openEditTaskModal, setOpenEditTaskModal] = useState<boolean>(false);
   const lightOrDarkMode = useCurrentMode();
   const theme = getDesignTokens(lightOrDarkMode);
 
@@ -41,11 +42,20 @@ export const ViewTaskModal = ({
     handleOpenConfirmationDelitionModal();
   };
 
+  const handleOpenEditTaskModal = () => {
+    setOpenEditTaskModal(true);
+    setModalStatus(null);
+  };
+
+  const onCloseEditTaskModal = () => {
+    setOpenEditTaskModal(false);
+  };
+
   const dropdownOptions = [
     {
       optionValue: "Edit Task",
       textColor: theme.custom.mediumGrey,
-      handleClick: () => console.log("clicked!"),
+      handleClick: handleOpenEditTaskModal,
     },
     {
       optionValue: "Delete Task",
@@ -97,6 +107,9 @@ export const ViewTaskModal = ({
       </DialogContainer>
 
       <AddOrEditTaskModal
+        openEditTaskModal={openEditTaskModal}
+        onCloseEditTaskModal={onCloseEditTaskModal}
+        taskContentInitialValue={selectedTaskContent}
         currentStatusValue={selectedTaskContent.status}
         setSelectedTaskContent={setSelectedTaskContent}
       />
