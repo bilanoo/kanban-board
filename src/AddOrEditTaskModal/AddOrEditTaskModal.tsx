@@ -16,19 +16,25 @@ import {
   ConfirmChangesButton,
 } from "./styles";
 import { Tasks } from "../stores/BoardContent.store";
+import { SelectChangeEvent } from "@mui/material";
+import { selectedTaskContentProps } from "../BoardColumns/Column/Column";
 
 interface AddOrEditTaskModalProps extends CurrentStatusProps {
   taskContentInitialValue: Tasks;
   openEditTaskModal: boolean;
   onCloseEditTaskModal: () => void;
+  contentTitle: string;
+  setSelectedTaskContent: React.Dispatch<
+    React.SetStateAction<selectedTaskContentProps>
+  >;
 }
 
 export const AddOrEditTaskModal = ({
-  currentStatusValue,
-  setSelectedTaskContent,
   taskContentInitialValue,
   openEditTaskModal,
   onCloseEditTaskModal,
+  contentTitle,
+  setSelectedTaskContent,
 }: AddOrEditTaskModalProps) => {
   const [taskContent, setTaskContent] = useState<Tasks>(
     taskContentInitialValue
@@ -57,6 +63,39 @@ export const AddOrEditTaskModal = ({
     }));
   }
 
+  function handleCurrentStatusChange(
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    event: SelectChangeEvent<string | any>
+  ): void {
+    setTaskContent((prevState) => ({
+      ...prevState,
+      status: event.target.value,
+    }));
+  }
+
+  function addNewSubtask(): void {
+    setTaskContent((prevState) => {
+      const updatedSubtasks = [...prevState.subtasks]; // Create a copy of the subtasks array
+      updatedSubtasks.push({ title: "", isCompleted: false });
+
+      return {
+        ...prevState,
+        subtasks: updatedSubtasks, // Update the subtasks array with the modified copy
+      };
+    });
+  }
+
+  function handleSaveChanges(): void {
+    setSelectedTaskContent((prevState) => ({
+      ...prevState,
+      description: taskContent.description,
+      status: taskContent.status,
+      subtasks: taskContent.subtasks,
+      title: taskContent.title,
+    }));
+    onCloseEditTaskModal();
+  }
+
   return (
     <DialogContainer
       open={openEditTaskModal}
@@ -64,7 +103,7 @@ export const AddOrEditTaskModal = ({
       fullWidth
       onClose={onCloseEditTaskModal}
     >
-      <Header>Add New Task</Header>
+      <Header>{contentTitle}</Header>
 
       <ContentContainer>
         <ContentTitle>Title</ContentTitle>
@@ -101,7 +140,7 @@ export const AddOrEditTaskModal = ({
         <SubtasksContainer>
           {taskContent.subtasks.map((eachSubtask, index) => (
             <DeletableField
-              key={eachSubtask.title}
+              key={eachSubtask.title + index}
               placeholderText={eachSubtask.title}
               value={eachSubtask.title}
               indexSubtask={index}
@@ -109,18 +148,22 @@ export const AddOrEditTaskModal = ({
             />
           ))}
         </SubtasksContainer>
-        <AddNewSubtaskButton>+Add New Subtask</AddNewSubtaskButton>
+        <AddNewSubtaskButton onClick={addNewSubtask}>
+          +Add New Subtask
+        </AddNewSubtaskButton>
       </ContentContainer>
 
       <CurrentStatus
+        handleChange={handleCurrentStatusChange}
         statusLabel="Status"
         selectFieldWidth="416px"
         selectFieldHeight="40px"
-        currentStatusValue={currentStatusValue}
-        setSelectedTaskContent={setSelectedTaskContent}
+        currentStatusValue={taskContent.status}
       />
 
-      <ConfirmChangesButton>Save Changes</ConfirmChangesButton>
+      <ConfirmChangesButton onClick={handleSaveChanges}>
+        Save Changes
+      </ConfirmChangesButton>
     </DialogContainer>
   );
 };

@@ -6,33 +6,24 @@ import { SelectChangeEvent } from "@mui/material/Select";
 
 export interface CurrentStatusProps {
   currentStatusValue: string;
-  setSelectedTaskContent: React.Dispatch<
+  setSelectedTaskContent?: React.Dispatch<
     React.SetStateAction<selectedTaskContentProps>
   >;
   statusLabel?: string;
   selectFieldWidth?: string;
   selectFieldHeight?: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  handleChange?: (event: SelectChangeEvent<string | any>) => void;
 }
 
 export const CurrentStatus = ({
   currentStatusValue,
-  setSelectedTaskContent,
   statusLabel,
   selectFieldWidth,
   selectFieldHeight,
+  handleChange,
 }: CurrentStatusProps) => {
   const selectedBoardContent = useSelectedBoardContent();
-  function handleChange(
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    event: SelectChangeEvent<typeof currentStatusValue | any>
-  ): void {
-    setSelectedTaskContent((prevState) => {
-      return {
-        ...prevState,
-        status: event.target.value,
-      };
-    });
-  }
 
   return (
     <Container>

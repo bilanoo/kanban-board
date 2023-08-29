@@ -113,7 +113,7 @@ export const AddNewSubtaskButton = styled(Button)(({ theme }) => ({
   "&": {
     backgroundColor: theme.custom.cancelButtonBackgroundColor,
     borderRadius: "24px",
-    width: "100%",
+    width: "416px",
     height: "40px",
     color: theme.palette.primary.contrastText,
     fontSize: "0.813rem",

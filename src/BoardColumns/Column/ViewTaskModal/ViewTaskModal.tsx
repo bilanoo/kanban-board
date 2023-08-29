@@ -7,7 +7,7 @@ import {
 import { Subtasks } from "./Subtasks/Subtasks";
 import { CurrentStatus } from "./CurrentStatus/CurrentStatus";
 import { GenericVerticalDropDown } from "../../../EditOrDeleteBoard/EditOrDeleteBoard";
-import { Box } from "@mui/material";
+import { Box, SelectChangeEvent } from "@mui/material";
 import { useCurrentMode } from "../../../stores/LightOrDarkMode.store";
 import { getDesignTokens } from "../../../theme";
 import { Tasks } from "../../../stores/BoardContent.store";
@@ -67,6 +67,18 @@ export const ViewTaskModal = ({
   const handleVerticalEllipsisOnClose = () => {
     setModalStatus(null);
   };
+
+  function handleChange(
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    event: SelectChangeEvent<string | any>
+  ): void {
+    setSelectedTaskContent((prevState) => {
+      return {
+        ...prevState,
+        status: event.target.value,
+      };
+    });
+  }
   return (
     <>
       <DialogContainer open={openTaskModal} maxWidth="sm" onClose={onClose}>
@@ -102,11 +114,12 @@ export const ViewTaskModal = ({
           selectFieldWidth="auto"
           selectFieldHeight="auto"
           currentStatusValue={selectedTaskContent.status}
-          setSelectedTaskContent={setSelectedTaskContent}
+          handleChange={handleChange}
         />
       </DialogContainer>
 
       <AddOrEditTaskModal
+        contentTitle="Edit Task"
         openEditTaskModal={openEditTaskModal}
         onCloseEditTaskModal={onCloseEditTaskModal}
         taskContentInitialValue={selectedTaskContent}

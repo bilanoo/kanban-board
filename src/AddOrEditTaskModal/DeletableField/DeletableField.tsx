@@ -35,6 +35,18 @@ export const DeletableField = ({
     });
   }
 
+  function handleDeleteSubtask(index: number): void {
+    setTaskContent((prevState) => {
+      const updatedSubtasks = [...prevState.subtasks]; // Create a copy of the subtasks array
+      updatedSubtasks.splice(index, 1); // Remove the subtask at the specified index
+
+      return {
+        ...prevState,
+        subtasks: updatedSubtasks, // Update the subtasks array with the modified copy
+      };
+    });
+  }
+
   return (
     <>
       <Container>
@@ -46,7 +58,7 @@ export const DeletableField = ({
           placeholder={placeholderText}
           size="small"
         ></InputField>
-        <IconButton>
+        <IconButton onClick={() => handleDeleteSubtask(indexSubtask)}>
           <img src={iconCross} alt="delete-subtask-icon" />
         </IconButton>
       </Container>
