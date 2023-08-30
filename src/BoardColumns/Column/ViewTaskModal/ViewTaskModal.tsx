@@ -81,20 +81,14 @@ export const ViewTaskModal = ({
   }
 
   function handleSaveChanges(taskContent: Tasks): void {
-    const areAnyOfTheSubtasksWithoutATitle = taskContent.subtasks.every(
-      (everySubtask) => everySubtask.title === ""
-    );
-
-    if (!areAnyOfTheSubtasksWithoutATitle && taskContent.title) {
-      setSelectedTaskContent((prevState) => ({
-        ...prevState,
-        description: taskContent.description,
-        status: taskContent.status,
-        subtasks: taskContent.subtasks,
-        title: taskContent.title,
-      }));
-      onCloseEditTaskModal();
-    }
+    setSelectedTaskContent((prevState) => ({
+      ...prevState,
+      description: taskContent.description,
+      status: taskContent.status,
+      subtasks: taskContent.subtasks,
+      title: taskContent.title,
+    }));
+    onCloseEditTaskModal();
   }
 
   return (

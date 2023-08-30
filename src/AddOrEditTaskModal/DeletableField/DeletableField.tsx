@@ -1,7 +1,7 @@
-import { IconButton } from "@mui/material";
+import { IconButton, InputAdornment } from "@mui/material";
 import { InputField } from "../styles";
 import iconCross from "../../assets/icon-cross.svg";
-import { Container } from "./styles";
+import { Container, ErrorLabel } from "./styles";
 import { Tasks } from "../../stores/BoardContent.store";
 
 interface DeletableFieldProps {
@@ -59,7 +59,13 @@ export const DeletableField = ({
           placeholder={placeholderText}
           size="small"
           error={value === ""}
-          helperText={value === "" ? "This field cannot be empty" : ""}
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                <ErrorLabel>{value === "" ? "Can't be empty" : ""}</ErrorLabel>
+              </InputAdornment>
+            ),
+          }}
         ></InputField>
         <IconButton onClick={() => handleDeleteSubtask(indexSubtask)}>
           <img src={iconCross} alt="delete-subtask-icon" />

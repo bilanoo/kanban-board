@@ -16,8 +16,9 @@ import {
   ConfirmChangesButton,
 } from "./styles";
 import { Tasks } from "../stores/BoardContent.store";
-import { SelectChangeEvent } from "@mui/material";
+import { InputAdornment, SelectChangeEvent } from "@mui/material";
 import { selectedTaskContentProps } from "../BoardColumns/Column/Column";
+import { ErrorLabel } from "./DeletableField/styles";
 
 interface AddOrEditTaskModalProps extends CurrentStatusProps {
   taskContentInitialValue: Tasks;
@@ -114,14 +115,20 @@ export const AddOrEditTaskModal = ({
         <InputField
           value={taskContent.title}
           error={taskContent.title === ""}
-          helperText={
-            taskContent.title === "" ? "This field cannot be empty" : ""
-          }
           size="small"
           variant="outlined"
           placeholder="e.g. Take coffee break"
           customWidth="416px"
           onChange={handleTitleChange}
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                <ErrorLabel>
+                  {taskContent.title === "" ? "Can't be empty" : ""}
+                </ErrorLabel>
+              </InputAdornment>
+            ),
+          }}
         ></InputField>
       </ContentContainer>
 

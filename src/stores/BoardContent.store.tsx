@@ -161,11 +161,11 @@ const useBoardContentStore = create<BoardContentStore>((set) => ({
           title: selectedTaskContent.title,
         };
 
-        const removeTask = () => {
-          const modifiedColumn = state.selectedBoardContent.columns.filter(
-            (eachColumn) => eachColumn.name === selectedTaskContent.columnName
-          );
+        const modifiedColumn = state.selectedBoardContent.columns.filter(
+          (eachColumn) => eachColumn.name === selectedTaskContent.columnName
+        );
 
+        const removeTask = () => {
           modifiedColumn[0].tasks.splice(selectedTaskContent.taskIndex, 1);
           return modifiedColumn[0];
         };
@@ -179,16 +179,21 @@ const useBoardContentStore = create<BoardContentStore>((set) => ({
         };
 
         const updatedSelectedBoard = { ...state.selectedBoardContent };
-        const indexColumnWithTaskToRemove =
-          updatedSelectedBoard.columns.findIndex(
-            (eachColumn) => eachColumn.name === selectedTaskContent.columnName
-          );
-        const indexColumnWithTaskToAdd = updatedSelectedBoard.columns.findIndex(
-          (eachColumn) => eachColumn.name === selectedTaskContent.status
-        );
+
+        const target = modifiedColumn[0].tasks[selectedTaskContent.taskIndex];
+
+        Object.assign(target, updatedTask);
 
         // only move the task to another column if the user changed its status
         if (selectedTaskContent.columnName !== selectedTaskContent.status) {
+          const indexColumnWithTaskToRemove =
+            updatedSelectedBoard.columns.findIndex(
+              (eachColumn) => eachColumn.name === selectedTaskContent.columnName
+            );
+          const indexColumnWithTaskToAdd =
+            updatedSelectedBoard.columns.findIndex(
+              (eachColumn) => eachColumn.name === selectedTaskContent.status
+            );
           updatedSelectedBoard.columns[indexColumnWithTaskToRemove] =
             removeTask();
 

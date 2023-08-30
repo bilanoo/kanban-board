@@ -96,7 +96,6 @@ export const Header = () => {
       title: taskContent.title,
     }));
 
-    console.log(taskContent);
     actions.addTaskToColumn({
       ...selectedTaskContent,
       description: taskContent.description,
@@ -107,7 +106,6 @@ export const Header = () => {
     onCloseAddTaskModal();
   }
 
-  console.log("selectedTaskContent", selectedTaskContent);
   return (
     <Container>
       <LogoContainer className="logo-container">
