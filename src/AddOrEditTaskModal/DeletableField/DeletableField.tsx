@@ -21,11 +21,12 @@ export const DeletableField = ({
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
     indexSubtask: number
   ): void {
+    event.preventDefault();
     setTaskContent((prevState) => {
       const updatedSubtasks = [...prevState.subtasks]; // Create a copy of the subtasks array
       updatedSubtasks[indexSubtask] = {
         ...updatedSubtasks[indexSubtask],
-        title: event.currentTarget.value,
+        title: event.target.value,
       };
 
       return {
@@ -57,6 +58,8 @@ export const DeletableField = ({
           variant="outlined"
           placeholder={placeholderText}
           size="small"
+          error={value === ""}
+          helperText={value === "" ? "This field cannot be empty" : ""}
         ></InputField>
         <IconButton onClick={() => handleDeleteSubtask(indexSubtask)}>
           <img src={iconCross} alt="delete-subtask-icon" />

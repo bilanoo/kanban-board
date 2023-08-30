@@ -101,6 +101,10 @@ export const AddOrEditTaskModal = ({
         <ContentTitle>Title</ContentTitle>
         <InputField
           value={taskContent.title}
+          error={taskContent.title === ""}
+          helperText={
+            taskContent.title === "" ? "This field cannot be empty" : ""
+          }
           size="small"
           variant="outlined"
           placeholder="e.g. Take coffee break"
@@ -132,7 +136,7 @@ export const AddOrEditTaskModal = ({
         <SubtasksContainer>
           {taskContent.subtasks.map((eachSubtask, index) => (
             <DeletableField
-              key={eachSubtask.title + index}
+              key={index + 1}
               placeholderText={eachSubtask.title}
               value={eachSubtask.title}
               indexSubtask={index}
