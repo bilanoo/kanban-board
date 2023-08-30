@@ -32,7 +32,7 @@ export const Header = () => {
   const taskContentInitialValue = {
     title: "",
     description: "",
-    status: "",
+    status: "Todo",
     subtasks: [
       { title: "", isCompleted: false },
       { title: "", isCompleted: false },
@@ -95,6 +95,15 @@ export const Header = () => {
       subtasks: taskContent.subtasks,
       title: taskContent.title,
     }));
+
+    console.log(taskContent);
+    actions.addTaskToColumn({
+      ...selectedTaskContent,
+      description: taskContent.description,
+      status: taskContent.status,
+      subtasks: taskContent.subtasks,
+      title: taskContent.title,
+    });
     onCloseAddTaskModal();
   }
 

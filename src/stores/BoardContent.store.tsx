@@ -43,6 +43,7 @@ interface BoardContentActions {
   changeSelectedBoardAfterRemovingColumn: (
     kanbanDataBeforeColumnBeingRemoved: KanbanDataProps
   ) => void;
+  addTaskToColumn: (taskToAdd: selectedTaskContentProps) => void;
 }
 
 interface BoardContentStore {
@@ -265,6 +266,32 @@ const useBoardContentStore = create<BoardContentStore>((set) => ({
         return {
           selectedBoard: newSelectedBoardName,
         };
+      }),
+    addTaskToColumn: (taskToAdd: selectedTaskContentProps) =>
+      set((state) => {
+        const updatedTask: Tasks = {
+          description: taskToAdd.description,
+          status: taskToAdd.status,
+          subtasks: taskToAdd.subtasks,
+          title: taskToAdd.title,
+        };
+
+        const modifiedColumn = state.selectedBoardContent.columns.filter(
+          (eachColumn) => eachColumn.name === updatedTask.status
+        );
+
+        modifiedColumn[0].tasks.push(updatedTask);
+
+        const updatedSelectedBoard = { ...state.selectedBoardContent };
+
+        const indexColumnWithTaskToAdd = updatedSelectedBoard.columns.findIndex(
+          (eachColumn) => eachColumn.name === updatedTask.status
+        );
+
+        updatedSelectedBoard.columns[indexColumnWithTaskToAdd] =
+          modifiedColumn[0];
+
+        return { selectedBoardContent: updatedSelectedBoard };
       }),
   },
 }));

@@ -88,6 +88,18 @@ export const AddOrEditTaskModal = ({
     });
   }
 
+  function areRequiredFieldsFilled(): boolean {
+    const areAnyOfTheSubtasksWithoutATitle = taskContent.subtasks.every(
+      (everySubtask) => everySubtask.title === ""
+    );
+
+    return (
+      !areAnyOfTheSubtasksWithoutATitle &&
+      taskContent.title !== "" &&
+      taskContent.status !== ""
+    );
+  }
+
   return (
     <DialogContainer
       open={openEditTaskModal}
@@ -157,7 +169,13 @@ export const AddOrEditTaskModal = ({
         currentStatusValue={taskContent.status}
       />
 
-      <ConfirmChangesButton onClick={() => handleSaveChanges(taskContent)}>
+      <ConfirmChangesButton
+        onClick={
+          areRequiredFieldsFilled()
+            ? () => handleSaveChanges(taskContent)
+            : undefined
+        }
+      >
         {submitButtonLabel}
       </ConfirmChangesButton>
     </DialogContainer>
