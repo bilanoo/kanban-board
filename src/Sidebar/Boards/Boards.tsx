@@ -10,13 +10,26 @@ import {
   IconContent,
 } from "./BoardStyles";
 import useBoardContentStore, {
+  SelectedBoardContent,
   useKanbanData,
   useSelectedBoard,
 } from "../../stores/BoardContent.store";
+import { useState } from "react";
+import { AddOrEditBoardModal } from "../../AddOrEditBoardModal/AddOrEditBoardModal";
 export const Boards = () => {
   const actions = useBoardContentStore((state) => state.actions);
   const kanbanData = useKanbanData();
   const selectedBoard = useSelectedBoard();
+
+  const [openEditBoardModal, setOpenEditBoardModal] = useState<boolean>(false);
+
+  const initialNewBoardContent: SelectedBoardContent = {
+    name: "",
+    columns: [
+      { name: "Todo", tasks: [] },
+      { name: "Doing", tasks: [] },
+    ],
+  };
 
   const setSelectedBoardValues = (
     event: React.MouseEvent<HTMLDivElement, MouseEvent>
@@ -33,6 +46,19 @@ export const Boards = () => {
   ) => {
     setSelectedBoardValues(event);
   };
+
+  const handleOpenEditBoardModal = () => {
+    setOpenEditBoardModal(true);
+  };
+
+  const handleCloseEditBoardModal = () => {
+    setOpenEditBoardModal(false);
+  };
+
+  function handleEditBoardSaveChanges(taskContent: SelectedBoardContent): void {
+    actions.addBoardToKanbanData(taskContent);
+    handleCloseEditBoardModal();
+  }
 
   return (
     <>
@@ -59,6 +85,7 @@ export const Boards = () => {
         </BoardList>
 
         <CreateNewBoard
+          onClick={handleOpenEditBoardModal}
           startIcon={
             <img src={BoardIcon} alt="board-icon" className="board-icon" />
           }
@@ -66,6 +93,15 @@ export const Boards = () => {
           + Create New Board
         </CreateNewBoard>
       </Container>
+
+      <AddOrEditBoardModal
+        handleSaveChanges={handleEditBoardSaveChanges}
+        openEditOrAddBoardModal={openEditBoardModal}
+        taskContentInitialValue={initialNewBoardContent}
+        contentTitle="Add New Board"
+        submitButtonLabel="Create New Board"
+        onCloseEditOrAddBoardModal={handleCloseEditBoardModal}
+      />
     </>
   );
 };

@@ -44,6 +44,7 @@ interface BoardContentActions {
     kanbanDataBeforeColumnBeingRemoved: KanbanDataProps
   ) => void;
   addTaskToColumn: (taskToAdd: selectedTaskContentProps) => void;
+  addBoardToKanbanData: (newBoardContent: SelectedBoardContent) => void;
 }
 
 interface BoardContentStore {
@@ -297,6 +298,16 @@ const useBoardContentStore = create<BoardContentStore>((set) => ({
           modifiedColumn[0];
 
         return { selectedBoardContent: updatedSelectedBoard };
+      }),
+    addBoardToKanbanData: (newBoardContent: SelectedBoardContent) =>
+      set((state) => {
+        const updatedKanbanData = { ...state.kanbanData };
+
+        updatedKanbanData.boards.push(newBoardContent);
+
+        state.actions.setSelectedBoard(newBoardContent.name);
+
+        return { kanbanData: updatedKanbanData };
       }),
   },
 }));
