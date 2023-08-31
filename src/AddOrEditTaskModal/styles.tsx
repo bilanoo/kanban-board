@@ -7,7 +7,12 @@ import {
   styled,
 } from "@mui/material";
 
-export const DialogContainer = styled(Dialog)(({ theme }) => ({
+interface DialogContainerProps {
+  customHeight: string;
+}
+export const DialogContainer = styled(Dialog, {
+  shouldForwardProp: (prop) => prop !== "customHeight",
+})<DialogContainerProps>(({ theme, customHeight }) => ({
   "&": {
     justifyContent: "center",
     alignItems: "center",
@@ -17,7 +22,7 @@ export const DialogContainer = styled(Dialog)(({ theme }) => ({
     backgroundColor: theme.palette.background.paper,
     color: theme.palette.text.primary,
     maxWidth: "480px",
-    minHeight: "675px",
+    minHeight: customHeight,
   },
 }));
 

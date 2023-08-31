@@ -1,8 +1,14 @@
 import { Container, AddNewColumnText } from "./style";
 
-export const AddNewColumn = () => {
+interface AddNewColumnProps {
+  handleAddNewColumnClick: () => void;
+}
+
+export const AddNewColumn = ({
+  handleAddNewColumnClick,
+}: AddNewColumnProps) => {
   return (
-    <Container>
+    <Container onClick={handleAddNewColumnClick}>
       <AddNewColumnText>+ New Column</AddNewColumnText>
     </Container>
   );

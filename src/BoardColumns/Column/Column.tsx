@@ -26,6 +26,7 @@ export interface selectedTaskContentProps extends Tasks {
 }
 export const Column = ({ eachBoard }: ColumnProps) => {
   const actions = useBoardContentStore((state) => state.actions);
+
   const [openTaskModal, setOpenTaskModal] = useState<boolean>(false);
   const [displayDeleteTaskDialog, setDisplayDeleteTaskDialog] =
     useState<boolean>(false);

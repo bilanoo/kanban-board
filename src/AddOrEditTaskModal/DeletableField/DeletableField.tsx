@@ -2,52 +2,25 @@ import { IconButton, InputAdornment } from "@mui/material";
 import { InputField } from "../styles";
 import iconCross from "../../assets/icon-cross.svg";
 import { Container, ErrorLabel } from "./styles";
-import { Tasks } from "../../stores/BoardContent.store";
 
 interface DeletableFieldProps {
   placeholderText: string;
   value: string;
-  setTaskContent: React.Dispatch<React.SetStateAction<Tasks>>;
   indexSubtask: number;
+  handleDelatableFieldChange: (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    indexSubtask: number
+  ) => void;
+  handleDeleteSubtask: (index: number) => void;
 }
 
 export const DeletableField = ({
   placeholderText,
   value,
   indexSubtask,
-  setTaskContent,
+  handleDelatableFieldChange,
+  handleDeleteSubtask,
 }: DeletableFieldProps) => {
-  function handleDelatableFieldChange(
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-    indexSubtask: number
-  ): void {
-    event.preventDefault();
-    setTaskContent((prevState) => {
-      const updatedSubtasks = [...prevState.subtasks]; // Create a copy of the subtasks array
-      updatedSubtasks[indexSubtask] = {
-        ...updatedSubtasks[indexSubtask],
-        title: event.target.value,
-      };
-
-      return {
-        ...prevState,
-        subtasks: updatedSubtasks, // Update the subtasks array with the modified copy
-      };
-    });
-  }
-
-  function handleDeleteSubtask(index: number): void {
-    setTaskContent((prevState) => {
-      const updatedSubtasks = [...prevState.subtasks]; // Create a copy of the subtasks array
-      updatedSubtasks.splice(index, 1); // Remove the subtask at the specified index
-
-      return {
-        ...prevState,
-        subtasks: updatedSubtasks, // Update the subtasks array with the modified copy
-      };
-    });
-  }
-
   return (
     <>
       <Container>

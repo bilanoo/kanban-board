@@ -18,7 +18,7 @@ export interface Columns {
   tasks: Tasks[];
 }
 
-interface SelectedBoardContent {
+export interface SelectedBoardContent {
   columns: Columns[];
   name: string;
 }
