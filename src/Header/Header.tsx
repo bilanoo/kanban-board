@@ -50,7 +50,7 @@ export const Header = () => {
   const [displayDeleteTaskDialog, setDisplayDeleteTaskDialog] =
     useState<boolean>(false);
 
-  const { actions, kanbanData } = useBoardContentStore((state) => state);
+  const actions = useBoardContentStore((state) => state.actions);
 
   const handleOpenConfirmationDelitionModal = () => {
     handleVerticalEllipsisOnClose();
@@ -96,7 +96,6 @@ export const Header = () => {
     handleCloseEditBoardModal();
   }
 
-  console.log(kanbanData);
   const dropdownOptions = [
     {
       optionValue: "Edit Board",
