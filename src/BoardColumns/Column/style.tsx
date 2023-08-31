@@ -54,7 +54,6 @@ export const PaperContainer = styled(Paper)(({ theme }) => ({
     width: "100%",
     minHeight: "100px",
     borderRadius: "8px",
-    boxShadow: `0px 1px 2px 0px ${theme.custom.boxShadowColor}`,
     backgroundColor: theme.palette.primary.main,
     cursor: "pointer !important",
     flexGrow: "0.06",
