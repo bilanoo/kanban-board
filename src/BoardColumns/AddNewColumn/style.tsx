@@ -16,7 +16,7 @@ export const Container = styled(Box)(({ theme }) => ({
   },
 }));
 
-export const AddNewColumnText = styled(Typography)(({ theme }) => ({
+export const AddNewColumnText = styled(Typography)(() => ({
   "&": {
     fontSize: "24px",
     fontWeight: "700",
