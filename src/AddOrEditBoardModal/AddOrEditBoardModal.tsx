@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   AddNewSubtaskButton,
   ConfirmChangesButton,
@@ -46,10 +46,13 @@ export const AddOrEditBoardModal = ({
 
   function areRequiredFieldsFilled(): boolean {
     const areAnyOfTheColumnssWithoutAName = taskContent.columns.every(
-      (everySubtask) => everySubtask.name === ""
+      (eachColumn) => eachColumn.name === ""
     );
 
-    return !areAnyOfTheColumnssWithoutAName && taskContent.name !== "";
+    return (
+      (!areAnyOfTheColumnssWithoutAName || taskContent.columns.length === 0) &&
+      taskContent.name !== ""
+    );
   }
 
   function handleDelatableFieldChange(
@@ -94,6 +97,10 @@ export const AddOrEditBoardModal = ({
       };
     });
   }
+
+  useEffect(() => {
+    setTaskContent(taskContentInitialValue);
+  }, [taskContentInitialValue]);
 
   return (
     <DialogContainer

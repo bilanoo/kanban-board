@@ -5,17 +5,21 @@ import LogoDark from "../assets/logo-dark.svg";
 import { Container, BoardSelected, AddNewTask, LogoContainer } from "./style";
 import { useCurrentMode } from "../stores/LightOrDarkMode.store";
 import useBoardContentStore, {
+  SelectedBoardContent,
   useSelectedBoard,
+  useSelectedBoardContent,
 } from "../stores/BoardContent.store";
 import { getDesignTokens } from "../theme";
 import { DeleteConfirmationModal } from "../DeleteConfirmationModal/DeleteConfirmationModal";
 import { useState } from "react";
 import { AddOrEditTaskModal } from "../AddOrEditTaskModal/AddOrEditTaskModal";
 import { selectedTaskContentProps } from "../BoardColumns/Column/Column";
+import { AddOrEditBoardModal } from "../AddOrEditBoardModal/AddOrEditBoardModal";
 
 export const Header = () => {
   const lightOrDarkMode = useCurrentMode();
   const selectedBoard = useSelectedBoard();
+  const selectedBoardContent = useSelectedBoardContent();
 
   const theme = getDesignTokens(lightOrDarkMode);
 
@@ -28,6 +32,8 @@ export const Header = () => {
       title: "",
       taskIndex: 0,
     });
+
+  const [openEditBoardModal, setOpenEditBoardModal] = useState<boolean>(false);
 
   const taskContentInitialValue = {
     title: "",
@@ -44,7 +50,7 @@ export const Header = () => {
   const [displayDeleteTaskDialog, setDisplayDeleteTaskDialog] =
     useState<boolean>(false);
 
-  const actions = useBoardContentStore((state) => state.actions);
+  const { actions, kanbanData } = useBoardContentStore((state) => state);
 
   const handleOpenConfirmationDelitionModal = () => {
     handleVerticalEllipsisOnClose();
@@ -74,11 +80,28 @@ export const Header = () => {
     setModalStatus(null);
   };
 
+  const handleOpenEditBoardModal = () => {
+    setOpenEditBoardModal(true);
+    setModalStatus(null);
+  };
+
+  const handleCloseEditBoardModal = () => {
+    setOpenEditBoardModal(false);
+    setModalStatus(null);
+  };
+
+  function handleEditBoardSaveChanges(taskContent: SelectedBoardContent): void {
+    actions.setSelectedBoardContent(taskContent);
+    actions.updateKanbanDataAfterMovingTask();
+    handleCloseEditBoardModal();
+  }
+
+  console.log(kanbanData);
   const dropdownOptions = [
     {
       optionValue: "Edit Board",
       textColor: theme.palette.text.primary,
-      handleClick: handleOpenAddTaskModal,
+      handleClick: handleOpenEditBoardModal,
     },
     {
       optionValue: "Delete Board",
@@ -119,7 +142,13 @@ export const Header = () => {
         </div>
       </LogoContainer>
       <BoardSelected variant="h6">{selectedBoard}</BoardSelected>
-      <AddNewTask onClick={handleOpenAddTaskModal}> + Add New Task</AddNewTask>
+      <AddNewTask
+        onClick={handleOpenAddTaskModal}
+        disabled={selectedBoardContent.columns.length === 0}
+      >
+        {" "}
+        + Add New Task
+      </AddNewTask>
       <GenericVerticalDropDown
         modalStatus={modalStatus}
         setModalStatus={setModalStatus}
@@ -146,6 +175,15 @@ export const Header = () => {
         currentStatusValue={selectedTaskContent.status}
         handleSaveChanges={handleSaveChanges}
         submitButtonLabel="Create Task"
+      />
+
+      <AddOrEditBoardModal
+        handleSaveChanges={handleEditBoardSaveChanges}
+        openEditOrAddBoardModal={openEditBoardModal}
+        taskContentInitialValue={selectedBoardContent}
+        contentTitle="Edit Board"
+        submitButtonLabel="Save Changes"
+        onCloseEditOrAddBoardModal={handleCloseEditBoardModal}
       />
     </Container>
   );

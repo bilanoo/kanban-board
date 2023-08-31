@@ -48,23 +48,25 @@ export const BoardColumns = () => {
             ))}
           </DragDropContext>
           <AddNewColumn handleAddNewColumnClick={handleOpenEditBoardModal} />
-          <AddOrEditBoardModal
-            handleSaveChanges={handleSaveChanges}
-            openEditOrAddBoardModal={openEditBoardModal}
-            taskContentInitialValue={selectedBoardContent}
-            contentTitle="Edit Board"
-            submitButtonLabel="Save Changes"
-            onCloseEditOrAddBoardModal={handleCloseEditBoardModal}
-          />
         </ContentFoundContainer>
       ) : (
         <NoColumnsContainer className="board-content">
           <NoColumnsTextInfo>
             This board is empty. Create a new column to get started.
           </NoColumnsTextInfo>
-          <AddNewColumnButton> + Add New Column</AddNewColumnButton>
+          <AddNewColumnButton onClick={handleOpenEditBoardModal}>
+            + Add New Column
+          </AddNewColumnButton>
         </NoColumnsContainer>
       )}
+      <AddOrEditBoardModal
+        handleSaveChanges={handleSaveChanges}
+        openEditOrAddBoardModal={openEditBoardModal}
+        taskContentInitialValue={selectedBoardContent}
+        contentTitle="Edit Board"
+        submitButtonLabel="Save Changes"
+        onCloseEditOrAddBoardModal={handleCloseEditBoardModal}
+      />
     </>
   );
 };
