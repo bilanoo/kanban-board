@@ -10,9 +10,7 @@ import { Container, DisplaySidebarButton } from "./style";
 export const Sidebar = () => {
   const [displaySidebar, setDisplaySidebar] = useState<boolean>(true);
 
-  function handleHideSidebarClick(
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ): void {
+  function handleHideSidebarClick(): void {
     setDisplaySidebar(!displaySidebar);
   }
 
