@@ -29,8 +29,8 @@ Users should be able to:
 
 ### Links
 
-- Solution URL: [Add solution URL here](https://github.com/bilanoo/kanban-board)
-- Live Site URL: [Add live site URL here](https://kanban-board-by-bilal-khan.netlify.app/)
+- Solution URL: [Github](https://github.com/bilanoo/kanban-board)
+- Live Site URL: [Kanban Board](https://kanban-board-by-bilal-khan.netlify.app/)
 
 ### Built with
 
