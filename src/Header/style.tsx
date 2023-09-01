@@ -27,23 +27,23 @@ export const BoardSelected = styled(Typography)(({ theme }) => ({
   },
 }));
 
-export const AddNewTask = styled(Button)(() => ({
+export const AddNewTask = styled(Button)(({ theme }) => ({
   "&": {
-    backgroundColor: "var(--dark-purple)",
+    backgroundColor: theme.palette.primary.contrastText,
     borderRadius: "24px",
     width: "164px",
     height: "53px",
-    color: "var(--white)",
+    color: theme.custom.white,
     fontSize: "15px",
     fontWeight: 700,
     textTransform: "none",
     marginLeft: "auto",
   },
   "&:hover": {
-    backgroundColor: "var(--light-purple)",
+    backgroundColor: theme.custom.lightPurple,
   },
   "&.Mui-disabled": {
-    color: "var(--white)",
-    backgroundColor: "var(--light-purple)",
+    color: theme.custom.white,
+    backgroundColor: theme.custom.lightPurple,
   },
 }));

@@ -25,7 +25,7 @@ export const DisplaySidebarButton = styled(Button)(({ theme }) => ({
     position: "absolute",
     bottom: "0",
     left: "0",
-    backgroundColor: "var(--dark-purple)",
+    backgroundColor: theme.palette.primary.contrastText,
     animation: `${stretchToShrink} 0.2s ease-in-out forwards`, // Apply the animation
   },
   "&:hover": {

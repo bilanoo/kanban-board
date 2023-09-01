@@ -12,34 +12,34 @@ export const NoColumnsContainer = styled("div")(({ theme }) => ({
   },
 }));
 
-export const NoColumnsTextInfo = styled(Typography)(() => ({
+export const NoColumnsTextInfo = styled(Typography)(({ theme }) => ({
   "&": {
     fontSize: "18px",
     fontWeight: "700",
-    color: "var(--lighter-grey)",
+    color: theme.custom.mediumGrey,
     paddingLeft: "24px",
     paddingRight: "24px",
     marginBottom: "20px",
   },
 }));
 
-export const AddNewColumnButton = styled(Button)(() => ({
+export const AddNewColumnButton = styled(Button)(({ theme }) => ({
   "&": {
-    backgroundColor: "var(--dark-purple)",
+    backgroundColor: theme.palette.primary.contrastText,
     borderRadius: "24px",
     width: "164px",
     height: "53px",
-    color: "var(--white)",
+    color: theme.custom.white,
     fontSize: "15px",
     fontWeight: 700,
     textTransform: "none",
   },
   "&:hover": {
-    backgroundColor: "var(--light-purple)",
+    backgroundColor: theme.custom.lightPurple,
   },
   "&.Mui-disabled": {
-    color: "var(--white)",
-    backgroundColor: "var(--light-purple)",
+    color: theme.custom.white,
+    backgroundColor: theme.custom.lightPurple,
   },
 }));
 
