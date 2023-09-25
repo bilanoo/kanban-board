@@ -8,7 +8,7 @@ import {
   Header,
   InputField,
 } from "../AddOrEditTaskModal/styles";
-import { SelectedBoardContent } from "../stores/BoardContent.store";
+import {Columns, SelectedBoardContent} from "../stores/BoardContent.store";
 import { DeletableField } from "../AddOrEditTaskModal/DeletableField/DeletableField";
 import { InputAdornment } from "@mui/material";
 import { ErrorLabel } from "../AddOrEditTaskModal/DeletableField/styles";
@@ -34,31 +34,32 @@ export const AddOrEditBoardModal = ({
   const [taskContent, setTaskContent] = useState<SelectedBoardContent>(
     taskContentInitialValue
   );
+  const [disabled, setDisabled] = useState<boolean>(false);
 
-  function handleBoardNameChange(
+  useEffect(() => {
+    // This function checks if any column title is empty
+    function areSubtasksEmpty(subtasks: Columns[]) {
+      return subtasks.some((eachColumn) => eachColumn.name === '');
+    }
+
+    // Check if the submit button should be disabled
+    const isDisabled = taskContent.name === ''  || areSubtasksEmpty(taskContent.columns);
+    setDisabled(isDisabled);
+  }, [taskContent]);
+
+  const handleBoardNameChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ): void {
+  ): void => {
     setTaskContent((prevState) => ({
       ...prevState,
       name: event.target.value,
     }));
-  }
+  };
 
-  function areRequiredFieldsFilled(): boolean {
-    const areAnyOfTheColumnssWithoutAName = taskContent.columns.every(
-      (eachColumn) => eachColumn.name === ""
-    );
-
-    return (
-      (!areAnyOfTheColumnssWithoutAName || taskContent.columns.length === 0) &&
-      taskContent.name !== ""
-    );
-  }
-
-  function handleDelatableFieldChange(
+  const handleDelatableFieldChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
     indexColumns: number
-  ): void {
+  ): void => {
     event.preventDefault();
     setTaskContent((prevState) => {
       const updatedColumns = [...prevState.columns];
@@ -72,9 +73,9 @@ export const AddOrEditBoardModal = ({
         columns: updatedColumns,
       };
     });
-  }
+  };
 
-  function handleDeleteSubtask(index: number): void {
+  const handleDeleteSubtask = (index: number): void => {
     setTaskContent((prevState) => {
       const updatedColumns = [...prevState.columns];
       updatedColumns.splice(index, 1);
@@ -84,9 +85,9 @@ export const AddOrEditBoardModal = ({
         columns: updatedColumns,
       };
     });
-  }
+  };
 
-  function addNewColumn(): void {
+  const addNewColumn = (): void => {
     setTaskContent((prevState) => {
       const updatedColumns = [...prevState.columns];
       updatedColumns.push({ name: "", tasks: [] });
@@ -96,7 +97,12 @@ export const AddOrEditBoardModal = ({
         columns: updatedColumns,
       };
     });
-  }
+  };
+
+  const handleCloseEditTaskModal = () => {
+    onCloseEditOrAddBoardModal();
+    setTaskContent(taskContentInitialValue);
+  };
 
   useEffect(() => {
     setTaskContent(taskContentInitialValue);
@@ -108,7 +114,7 @@ export const AddOrEditBoardModal = ({
       open={openEditOrAddBoardModal}
       maxWidth="sm"
       fullWidth
-      onClose={onCloseEditOrAddBoardModal}
+      onClose={handleCloseEditTaskModal}
     >
       <Header>{contentTitle}</Header>
 
@@ -155,11 +161,8 @@ export const AddOrEditBoardModal = ({
       </ContentContainer>
 
       <ConfirmChangesButton
-        onClick={
-          areRequiredFieldsFilled()
-            ? () => handleSaveChanges(taskContent)
-            : undefined
-        }
+        onClick={() => handleSaveChanges(taskContent)}
+        disabled={disabled}
       >
         {submitButtonLabel}
       </ConfirmChangesButton>
