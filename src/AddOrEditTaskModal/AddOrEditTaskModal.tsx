@@ -15,7 +15,7 @@ import {
   AddNewSubtaskButton,
   ConfirmChangesButton,
 } from "./styles";
-import { Tasks } from "../stores/BoardContent.store";
+import {SubTasks, Tasks} from "../stores/BoardContent.store";
 import { InputAdornment, SelectChangeEvent } from "@mui/material";
 import { selectedTaskContentProps } from "../BoardColumns/Column/Column";
 import { ErrorLabel } from "./DeletableField/styles";
@@ -44,40 +44,52 @@ export const AddOrEditTaskModal = ({
   const [taskContent, setTaskContent] = useState<Tasks>(
     taskContentInitialValue
   );
+  const [disabled, setDisabled] = useState<boolean>(false);
 
-  function handleTitleChange(
+  const handleTitleChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ): void {
+  ): void => {
     setTaskContent((prevState) => ({
       ...prevState,
       title: event.target.value,
     }));
-  }
+  };
+
+  useEffect(() => {
+    // This function checks if any subtask title is empty
+    function areSubtasksEmpty(subtasks: SubTasks[]) {
+      return subtasks.some((subtask) => subtask.title === '');
+    }
+
+    // Check if the submit button should be disabled
+    const isDisabled = taskContent.title === '' || taskContent.status === '' || areSubtasksEmpty(taskContent.subtasks);
+    setDisabled(isDisabled);
+  }, [taskContent]);
 
   useEffect(() => {
     setTaskContent(taskContentInitialValue);
   }, [taskContentInitialValue]);
 
-  function handleDescriptionChange(
+  const handleDescriptionChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ): void {
+  ): void => {
     setTaskContent((prevState) => ({
       ...prevState,
       description: event.target.value,
     }));
-  }
+  };
 
-  function handleCurrentStatusChange(
+  const handleCurrentStatusChange = (
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     event: SelectChangeEvent<string | any>
-  ): void {
+  ): void => {
     setTaskContent((prevState) => ({
       ...prevState,
       status: event.target.value,
     }));
-  }
+  };
 
-  function addNewSubtask(): void {
+  const addNewSubtask = (): void => {
     setTaskContent((prevState) => {
       const updatedSubtasks = [...prevState.subtasks]; // Create a copy of the subtasks array
       updatedSubtasks.push({ title: "", isCompleted: false });
@@ -87,24 +99,12 @@ export const AddOrEditTaskModal = ({
         subtasks: updatedSubtasks, // Update the subtasks array with the modified copy
       };
     });
-  }
+  };
 
-  function areRequiredFieldsFilled(): boolean {
-    const areAnyOfTheSubtasksWithoutATitle = taskContent.subtasks.every(
-      (everySubtask) => everySubtask.title === ""
-    );
-
-    return (
-      !areAnyOfTheSubtasksWithoutATitle &&
-      taskContent.title !== "" &&
-      taskContent.status !== ""
-    );
-  }
-
-  function handleDelatableFieldChange(
+  const handleDelatableFieldChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
     indexSubtask: number
-  ): void {
+  ): void => {
     event.preventDefault();
     setTaskContent((prevState) => {
       const updatedSubtasks = [...prevState.subtasks]; // Create a copy of the subtasks array
@@ -118,9 +118,9 @@ export const AddOrEditTaskModal = ({
         subtasks: updatedSubtasks, // Update the subtasks array with the modified copy
       };
     });
-  }
+  };
 
-  function handleDeleteSubtask(index: number): void {
+  const handleDeleteSubtask = (index: number): void => {
     setTaskContent((prevState) => {
       const updatedSubtasks = [...prevState.subtasks]; // Create a copy of the subtasks array
       updatedSubtasks.splice(index, 1); // Remove the subtask at the specified index
@@ -130,7 +130,13 @@ export const AddOrEditTaskModal = ({
         subtasks: updatedSubtasks, // Update the subtasks array with the modified copy
       };
     });
-  }
+  };
+
+  const handleCloseEditTaskModal = () => {
+    onCloseEditTaskModal();
+    setTaskContent(taskContentInitialValue);
+  };
+
 
   return (
     <DialogContainer
@@ -138,7 +144,7 @@ export const AddOrEditTaskModal = ({
       open={openEditTaskModal}
       maxWidth="sm"
       fullWidth
-      onClose={onCloseEditTaskModal}
+      onClose={handleCloseEditTaskModal}
     >
       <Header>{contentTitle}</Header>
 
@@ -212,11 +218,8 @@ export const AddOrEditTaskModal = ({
       />
 
       <ConfirmChangesButton
-        onClick={
-          areRequiredFieldsFilled()
-            ? () => handleSaveChanges(taskContent)
-            : undefined
-        }
+        onClick={() => handleSaveChanges(taskContent)}
+        disabled={disabled}
       >
         {submitButtonLabel}
       </ConfirmChangesButton>
