@@ -8,7 +8,6 @@
   - [Links](#links)
 - [Built with](#built-with)
 - [Continued development](#continued-development)
-- [Author](#author)
 
 ### The Project
 
@@ -45,8 +44,3 @@ Users should be able to:
 ### Continued development
 
 Future implementation is to cache the data so to keep the changes even after a user refreshes the page. Also, turning the app into a full stack web app.
-
-## Author
-
-- Website - [Add your name here](https://www.your-site.com)
-- LinkedIn - [@BlalKhan](https://www.frontendmentor.io/profile/yourusername)
